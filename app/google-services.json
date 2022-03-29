@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "966483435520",
+    "project_id": "newsblender-109f3",
+    "storage_bucket": "newsblender-109f3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:966483435520:android:647f2cabff9ab8d19cf8e5",
+        "android_client_info": {
+          "package_name": "com.example.newsblender"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "966483435520-ucanm68e1216kefeeinrsanlhc6bi95l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBIJCTu81Egb8CbUO-FPrVf35SSc1VjDWM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "966483435520-ucanm68e1216kefeeinrsanlhc6bi95l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
