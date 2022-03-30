@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,53 +14,74 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.SignInButton;
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.GoogleAuthProvider;
 
 import java.util.Objects;
 
 public class LoginActivity extends AppCompatActivity {
-    private EditText emailInput;
-    private EditText passwordInput;
-    private TextView registerTextView;
-    private TextView passForgotTextView;
-    private Button signInButton;
-    private ProgressBar progressBar;
-    FirebaseAuth fAuth;
+    private static final String TAG = "LoginActivity";
+    private static final int RC_SIGN_IN = 1234;
+    private EditText mEmailInput;
+    private EditText mPasswordInput;
+    private TextView mRegisterTextView;
+    private TextView mPassForgotTextView;
+    private Button mSignInButton;
+    private SignInButton mSignInButtonGoogle;
+    private ProgressBar mProgressBar;
+    private FirebaseAuth fAuth;
+    private GoogleSignInClient mSignInClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        emailInput = findViewById(R.id.email_input_sign_in);
-        passwordInput = findViewById(R.id.password_input_sign_in);
-        registerTextView = findViewById(R.id.register_text_view);
-        passForgotTextView = findViewById(R.id.pass_forgot_textview);
-        signInButton = findViewById(R.id.sign_in_button);
-        progressBar = findViewById(R.id.progressBar);
+        mEmailInput = findViewById(R.id.email_input_sign_in);
+        mPasswordInput = findViewById(R.id.password_input_sign_in);
+        mRegisterTextView = findViewById(R.id.register_text_view);
+        mPassForgotTextView = findViewById(R.id.pass_forgot_textview);
+        mSignInButton = findViewById(R.id.sign_in_button);
+        mSignInButtonGoogle = findViewById(R.id.sign_in_google_button);
+        mProgressBar = findViewById(R.id.progressBar);
         fAuth = FirebaseAuth.getInstance();
 
-        signInButton.setOnClickListener(view -> {
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
 
-            String email = emailInput.getText().toString().trim();
-            String password = passwordInput.getText().toString().trim();
+        mSignInClient = GoogleSignIn.getClient(this, gso);
+
+        mSignInButton.setOnClickListener(view -> {
+
+            String email = mEmailInput.getText().toString().trim();
+            String password = mPasswordInput.getText().toString().trim();
 
             if (TextUtils.isEmpty(email)) {
-                emailInput.setError("Email is Required.");
+                mEmailInput.setError("Email is Required.");
                 return;
             }
 
             if (TextUtils.isEmpty(password)) {
-                passwordInput.setError("Password is Required.");
+                mPasswordInput.setError("Password is Required.");
                 return;
             }
 
             if (password.length() < 6) {
-                passwordInput.setError("Password Must be >= 6 Characters");
+                mPasswordInput.setError("Password Must be >= 6 Characters");
                 return;
             }
 
-            progressBar.setVisibility(View.VISIBLE);
+            mProgressBar.setVisibility(View.VISIBLE);
 
             fAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
@@ -67,14 +89,19 @@ public class LoginActivity extends AppCompatActivity {
                     startActivity(new Intent(getApplicationContext(), MainActivity.class));
                 } else {
                     Toast.makeText(LoginActivity.this, "Error ! " + Objects.requireNonNull(task.getException()).getMessage(), Toast.LENGTH_SHORT).show();
-                    progressBar.setVisibility(View.GONE);
+                    mProgressBar.setVisibility(View.GONE);
                 }
             });
         });
 
-        registerTextView.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), RegisterActivity.class)));
+        mSignInButtonGoogle.setOnClickListener(view -> {
+            Intent signInIntent = mSignInClient.getSignInIntent();
+            startActivityForResult(signInIntent, RC_SIGN_IN);
+        });
 
-        passForgotTextView.setOnClickListener(view -> {
+        mRegisterTextView.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), RegisterActivity.class)));
+
+        mPassForgotTextView.setOnClickListener(view -> {
             final EditText resetMail = new EditText(view.getContext());
             final AlertDialog.Builder passwordResetDialog = new AlertDialog.Builder(view.getContext());
             passwordResetDialog.setTitle("Reset Password ?");
@@ -96,5 +123,28 @@ public class LoginActivity extends AppCompatActivity {
         });
 
 
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+        try {
+            GoogleSignInAccount account = task.getResult(ApiException.class);
+            firebaseAuthWithGoogle(account);
+        } catch (ApiException e) {
+            Log.w(TAG, "Google sign in failed", e);
+        }
+    }
+
+    private void firebaseAuthWithGoogle(GoogleSignInAccount account) {
+        AuthCredential credential = GoogleAuthProvider.getCredential(account.getIdToken(), null);
+        fAuth.signInWithCredential(credential)
+                .addOnSuccessListener(this, authResult -> {
+                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                    finish();
+                })
+                .addOnFailureListener(this, e -> Toast.makeText(LoginActivity.this, "Authentication failed.",
+                        Toast.LENGTH_SHORT).show());
     }
 }

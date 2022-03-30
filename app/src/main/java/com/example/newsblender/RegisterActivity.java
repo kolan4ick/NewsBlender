@@ -24,26 +24,26 @@ import java.util.Objects;
 
 public class RegisterActivity extends AppCompatActivity {
     public static final String TAG = "TAG";
-    private EditText fullNameInput;
-    private EditText passwordInput;
-    private EditText emailInput;
-    private Button signUpButton;
-    private TextView loginTextView;
-    private ProgressBar progressBar;
+    private EditText mFullNameInput;
+    private EditText mPasswordInput;
+    private EditText mEmailInput;
+    private Button mSignUpButton;
+    private TextView mLoginTextView;
+    private ProgressBar mProgressBar;
     private FirebaseFirestore fStore;
-    private String userID;
+    private String mUserID;
     FirebaseAuth fAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        fullNameInput = findViewById(R.id.full_name_input_sign_up);
-        passwordInput = findViewById(R.id.password_input_sign_up);
-        emailInput = findViewById(R.id.email_input_sign_up);
-        signUpButton = findViewById(R.id.sign_up_button);
-        loginTextView = findViewById(R.id.login_text_view);
-        progressBar = findViewById(R.id.progressBar);
+        mFullNameInput = findViewById(R.id.full_name_input_sign_up);
+        mPasswordInput = findViewById(R.id.password_input_sign_up);
+        mEmailInput = findViewById(R.id.email_input_sign_up);
+        mSignUpButton = findViewById(R.id.sign_up_button);
+        mLoginTextView = findViewById(R.id.login_text_view);
+        mProgressBar = findViewById(R.id.progressBar);
         fAuth = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
 
@@ -52,27 +52,27 @@ public class RegisterActivity extends AppCompatActivity {
             finish();
         }
 
-        signUpButton.setOnClickListener(view -> {
-            final String email = emailInput.getText().toString().trim();
-            String password = passwordInput.getText().toString().trim();
-            final String fullName = fullNameInput.getText().toString();
+        mSignUpButton.setOnClickListener(view -> {
+            final String email = mEmailInput.getText().toString().trim();
+            String password = mPasswordInput.getText().toString().trim();
+            final String fullName = mFullNameInput.getText().toString();
 
             if (TextUtils.isEmpty(email)) {
-                emailInput.setError("Email is Required.");
+                mEmailInput.setError("Email is Required.");
                 return;
             }
 
             if (TextUtils.isEmpty(password)) {
-                passwordInput.setError("Password is Required.");
+                mPasswordInput.setError("Password is Required.");
                 return;
             }
 
             if (password.length() < 6) {
-                fullNameInput.setError("Password Must be >= 6 Characters");
+                mFullNameInput.setError("Password Must be >= 6 Characters");
                 return;
             }
 
-            progressBar.setVisibility(View.VISIBLE);
+            mProgressBar.setVisibility(View.VISIBLE);
 
             // register the user in firebase
 
@@ -87,23 +87,23 @@ public class RegisterActivity extends AppCompatActivity {
                             .addOnFailureListener(e -> Log.d(TAG, "onFailure: Email not sent " + e.getMessage()));
 
                     Toast.makeText(RegisterActivity.this, "User Created.", Toast.LENGTH_SHORT).show();
-                    userID = fAuth.getCurrentUser().getUid();
-                    DocumentReference documentReference = fStore.collection("users").document(userID);
+                    mUserID = fAuth.getCurrentUser().getUid();
+                    DocumentReference documentReference = fStore.collection("users").document(mUserID);
                     Map<String, Object> user = new HashMap<>();
                     user.put("fName", fullName);
                     user.put("email", email);
                     documentReference.set(user)
-                            .addOnSuccessListener(aVoid -> Log.d(TAG, "onSuccess: user Profile is created for " + userID))
+                            .addOnSuccessListener(aVoid -> Log.d(TAG, "onSuccess: user Profile is created for " + mUserID))
                             .addOnFailureListener(e -> Log.d(TAG, "onFailure: " + e));
                     startActivity(new Intent(getApplicationContext(), MainActivity.class));
                 } else {
                     Toast.makeText(RegisterActivity.this, "Error ! " + Objects.requireNonNull(task.getException()).getMessage(), Toast.LENGTH_SHORT).show();
-                    progressBar.setVisibility(View.GONE);
+                    mProgressBar.setVisibility(View.GONE);
                 }
             });
         });
 
-        loginTextView.setOnClickListener(view -> {
+        mLoginTextView.setOnClickListener(view -> {
             startActivity(new Intent(getApplicationContext(), LoginActivity.class));
         });
     }
