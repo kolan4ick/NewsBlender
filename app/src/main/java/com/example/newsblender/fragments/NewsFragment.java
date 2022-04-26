@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 
 import com.example.newsblender.R;
 
+import java.util.zip.Inflater;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link NewsFragment#newInstance} factory method to
@@ -61,6 +63,7 @@ public class NewsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_news, container, false);
+        View mView =  inflater.inflate(R.layout.fragment_news, container, false);
+        return mView;
     }
 }
