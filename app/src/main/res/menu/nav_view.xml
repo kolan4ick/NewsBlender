@@ -7,7 +7,76 @@
                 android:id="@+id/nav_news"
                 android:title="@string/all_news" />
         <item
-                android:id="@+id/nav_settings"
-                android:title="@string/settings" />
+                android:id="@+id/nav_vinnutsia"
+                android:title="@string/vinnutsia" />
+        <item
+                android:id="@+id/nav_volyn"
+                android:title="@string/volyn" />
+        <item
+                android:id="@+id/nav_dnipropetrovsk"
+                android:title="@string/dnipropetrovsk" />
+        <item
+                android:id="@+id/nav_transcarpathian"
+                android:title="@string/transcarpathian" />
+        <item
+                android:id="@+id/nav_zaporizhzhia"
+                android:title="@string/zaporizhzhia" />
+        <item
+                android:id="@+id/nav_ivano_frankivsk"
+                android:title="@string/ivano_frankivsk" />
+        <item
+                android:id="@+id/nav_kyiv"
+                android:title="@string/kyiv" />
+        <item
+                android:id="@+id/nav_kirovohrad"
+                android:title="@string/kirovohrad" />
+        <item
+                android:id="@+id/nav_lviv"
+                android:title="@string/lviv" />
+        <item
+                android:id="@+id/nav_mykolayiv"
+                android:title="@string/mykolayiv" />
+        <item
+                android:id="@+id/nav_odesa"
+                android:title="@string/odesa" />
+        <item
+                android:id="@+id/nav_rivne"
+                android:title="@string/rivne" />
+        <item
+                android:id="@+id/nav_ternopil"
+                android:title="@string/ternopil" />
+        <item
+                android:id="@+id/nav_kharkiv"
+                android:title="@string/kharkiv" />
+        <item
+                android:id="@+id/nav_kherson"
+                android:title="@string/kherson" />
+        <item
+                android:id="@+id/nav_khmelnytsky"
+                android:title="@string/khmelnytsky" />
+        <item
+                android:id="@+id/nav_cherkasy"
+                android:title="@string/cherkasy" />
+        <item
+                android:id="@+id/nav_chernihiv"
+                android:title="@string/chernihiv" />
+        <item
+                android:id="@+id/nav_chernivtsi"
+                android:title="@string/chernivtsi" />
+        <item
+                android:id="@+id/nav_zhytomyr"
+                android:title="@string/zhytomyr" />
+        <item
+                android:id="@+id/nav_poltava"
+                android:title="@string/poltava" />
+        <item
+                android:id="@+id/nav_luhansk"
+                android:title="@string/luhansk" />
+        <item
+                android:id="@+id/nav_donetsk"
+                android:title="@string/donetsk" />
+        <item
+                android:id="@+id/nav_sumy"
+                android:title="@string/sumy" />
     </group>
 </menu>

@@ -1,22 +1,36 @@
 package com.example.newsblender.fragments;
 
+import android.app.ProgressDialog;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.example.newsblender.MainActivity;
 import com.example.newsblender.R;
 import com.example.newsblender.classes.ItemViewModel;
 import com.example.newsblender.classes.TelegramNews;
+import com.example.newsblender.classes.TelegramNewsContent;
 import com.example.newsblender.classes.Util;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
+
 import java.io.IOException;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -60,6 +74,7 @@ public class NewsFragment extends Fragment {
     /* Variables */
     private ItemViewModel mViewModel;
     private ArrayList<TelegramNews> mTelegramNews;
+    private ProgressBar mProgressBarNewsFragment;
 
     public static NewsFragment newInstance() {
         return new NewsFragment();
@@ -76,19 +91,16 @@ public class NewsFragment extends Fragment {
         // Inflate the layout for this fragment
         View mView = inflater.inflate(R.layout.fragment_news, container, false);
         mViewModel = new ViewModelProvider(requireActivity()).get(ItemViewModel.class);
+        mProgressBarNewsFragment = mView.findViewById(R.id.progressBarNewsFragment);
         assignNews();
         return mView;
     }
 
     public void assignNews() {
-        try {
-            if (mViewModel.getNewsNavigationTypeValue() == ALL_NEWS) {
-                Toast.makeText(getContext(), "ALL", Toast.LENGTH_SHORT).show();
-            } else {
-                mTelegramNews = Util.extractionNewsFromTelegramLink(new StringBuilder(telegramLinks[mViewModel.getNewsNavigationTypeValue()]));
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (mViewModel.getNewsNavigationTypeValue() == ALL_NEWS) {
+            Toast.makeText(getContext(), "ALL", Toast.LENGTH_SHORT).show();
+        } else {
+            new TelegramNewsContent(new StringBuilder(telegramLinks[mViewModel.getNewsNavigationTypeValue()]), getContext(), mProgressBarNewsFragment).execute();
         }
     }
 }

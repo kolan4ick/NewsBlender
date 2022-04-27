@@ -1,7 +1,11 @@
 package com.example.newsblender;
 
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -24,6 +28,7 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.example.newsblender.classes.ItemViewModel;
+import com.example.newsblender.classes.TelegramNews;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -34,6 +39,15 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
+
+import java.io.IOException;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
@@ -87,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         viewModel = new ViewModelProvider(this).get(ItemViewModel.class);
-        viewModel.setNewsNavigationTypeValue(ZAPORIZHZHIA);
+        viewModel.setNewsNavigationTypeValue(LVIV);
         setContentView(R.layout.activity_main);
 
         /* Setting main variables */
@@ -109,12 +123,14 @@ public class MainActivity extends AppCompatActivity {
         firebaseUserInit();
 
         setSupportActionBar(mToolbar);
-        mAppBarConfiguration = new AppBarConfiguration.Builder(R.id.nav_news, R.id.nav_settings).setOpenableLayout(mDrawerLayout).build();
+        mAppBarConfiguration = new AppBarConfiguration.Builder(R.id.nav_news).setOpenableLayout(mDrawerLayout).build();
         NavigationUI.setupActionBarWithNavController(this, mNavController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(mNavigationView, mNavController);
         navigationInit();
         mToolbar.setNavigationIcon(R.drawable.ic_menu_24dp);
         mToolbar.setNavigationOnClickListener(view -> mDrawerLayout.open());
+
+//        Toast.makeText(this, fStore.collection("/telegram_links").document().toString(), Toast.LENGTH_SHORT).show();
     }
 
     @SuppressLint("NonConstantResourceId")
@@ -129,12 +145,128 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), menuItem.getTitle().toString(), Toast.LENGTH_SHORT).show();
             switch (menuItem.getItemId()) {
                 case R.id.nav_news:
+                    viewModel.setNewsNavigationTypeValue(ALL_NEWS);
+                    mNavController.navigate(R.id.newsFragment);
+                    mToolbar.setNavigationIcon(R.drawable.ic_menu_24dp);
+                    break;
+                case R.id.nav_vinnutsia:
+                    viewModel.setNewsNavigationTypeValue(VINNUTSIA);
+                    mNavController.navigate(R.id.newsFragment);
+                    mToolbar.setNavigationIcon(R.drawable.ic_menu_24dp);
+                    break;
+                case R.id.nav_volyn:
+                    viewModel.setNewsNavigationTypeValue(VOLYN);
+                    mNavController.navigate(R.id.newsFragment);
+                    mToolbar.setNavigationIcon(R.drawable.ic_menu_24dp);
+                    break;
+                case R.id.nav_dnipropetrovsk:
+                    viewModel.setNewsNavigationTypeValue(DNIPROPETROVSK);
+                    mNavController.navigate(R.id.newsFragment);
+                    mToolbar.setNavigationIcon(R.drawable.ic_menu_24dp);
+                    break;
+                case R.id.nav_transcarpathian:
+                    viewModel.setNewsNavigationTypeValue(TRANSCARPATHIAN);
+                    mNavController.navigate(R.id.newsFragment);
+                    mToolbar.setNavigationIcon(R.drawable.ic_menu_24dp);
+                    break;
+                case R.id.nav_zaporizhzhia:
                     viewModel.setNewsNavigationTypeValue(ZAPORIZHZHIA);
                     mNavController.navigate(R.id.newsFragment);
                     mToolbar.setNavigationIcon(R.drawable.ic_menu_24dp);
                     break;
-                case R.id.nav_settings:
-                    mNavController.navigate(R.id.settingsFragment);
+                case R.id.nav_ivano_frankivsk:
+                    viewModel.setNewsNavigationTypeValue(IVANO_FRANKIVSK);
+                    mNavController.navigate(R.id.newsFragment);
+                    mToolbar.setNavigationIcon(R.drawable.ic_menu_24dp);
+                    break;
+                case R.id.nav_kyiv:
+                    viewModel.setNewsNavigationTypeValue(KYIV);
+                    mNavController.navigate(R.id.newsFragment);
+                    mToolbar.setNavigationIcon(R.drawable.ic_menu_24dp);
+                    break;
+                case R.id.nav_kirovohrad:
+                    viewModel.setNewsNavigationTypeValue(KIROVOHRAD);
+                    mNavController.navigate(R.id.newsFragment);
+                    mToolbar.setNavigationIcon(R.drawable.ic_menu_24dp);
+                    break;
+                case R.id.nav_lviv:
+                    viewModel.setNewsNavigationTypeValue(LVIV);
+                    mNavController.navigate(R.id.newsFragment);
+                    mToolbar.setNavigationIcon(R.drawable.ic_menu_24dp);
+                    break;
+                case R.id.nav_mykolayiv:
+                    viewModel.setNewsNavigationTypeValue(MYKOLAYIV);
+                    mNavController.navigate(R.id.newsFragment);
+                    mToolbar.setNavigationIcon(R.drawable.ic_menu_24dp);
+                    break;
+                case R.id.nav_odesa:
+                    viewModel.setNewsNavigationTypeValue(ODESA);
+                    mNavController.navigate(R.id.newsFragment);
+                    mToolbar.setNavigationIcon(R.drawable.ic_menu_24dp);
+                    break;
+                case R.id.nav_rivne:
+                    viewModel.setNewsNavigationTypeValue(RIVNE);
+                    mNavController.navigate(R.id.newsFragment);
+                    mToolbar.setNavigationIcon(R.drawable.ic_menu_24dp);
+                    break;
+                case R.id.nav_ternopil:
+                    viewModel.setNewsNavigationTypeValue(TERNOPIL);
+                    mNavController.navigate(R.id.newsFragment);
+                    mToolbar.setNavigationIcon(R.drawable.ic_menu_24dp);
+                    break;
+                case R.id.nav_kharkiv:
+                    viewModel.setNewsNavigationTypeValue(KHARKIV);
+                    mNavController.navigate(R.id.newsFragment);
+                    mToolbar.setNavigationIcon(R.drawable.ic_menu_24dp);
+                    break;
+                case R.id.nav_kherson:
+                    viewModel.setNewsNavigationTypeValue(KHERSON);
+                    mNavController.navigate(R.id.newsFragment);
+                    mToolbar.setNavigationIcon(R.drawable.ic_menu_24dp);
+                    break;
+                case R.id.nav_khmelnytsky:
+                    viewModel.setNewsNavigationTypeValue(KHMELNYTSKY);
+                    mNavController.navigate(R.id.newsFragment);
+                    mToolbar.setNavigationIcon(R.drawable.ic_menu_24dp);
+                    break;
+                case R.id.nav_cherkasy:
+                    viewModel.setNewsNavigationTypeValue(CHERKASY);
+                    mNavController.navigate(R.id.newsFragment);
+                    mToolbar.setNavigationIcon(R.drawable.ic_menu_24dp);
+                    break;
+                case R.id.nav_chernihiv:
+                    viewModel.setNewsNavigationTypeValue(CHERNIHIV);
+                    mNavController.navigate(R.id.newsFragment);
+                    mToolbar.setNavigationIcon(R.drawable.ic_menu_24dp);
+                    break;
+                case R.id.nav_chernivtsi:
+                    viewModel.setNewsNavigationTypeValue(CHERNIVTSI);
+                    mNavController.navigate(R.id.newsFragment);
+                    mToolbar.setNavigationIcon(R.drawable.ic_menu_24dp);
+                    break;
+                case R.id.nav_zhytomyr:
+                    viewModel.setNewsNavigationTypeValue(ZHYTOMYR);
+                    mNavController.navigate(R.id.newsFragment);
+                    mToolbar.setNavigationIcon(R.drawable.ic_menu_24dp);
+                    break;
+                case R.id.nav_poltava:
+                    viewModel.setNewsNavigationTypeValue(POLTAVA);
+                    mNavController.navigate(R.id.newsFragment);
+                    mToolbar.setNavigationIcon(R.drawable.ic_menu_24dp);
+                    break;
+                case R.id.nav_luhansk:
+                    viewModel.setNewsNavigationTypeValue(LUHANSK);
+                    mNavController.navigate(R.id.newsFragment);
+                    mToolbar.setNavigationIcon(R.drawable.ic_menu_24dp);
+                    break;
+                case R.id.nav_donetsk:
+                    viewModel.setNewsNavigationTypeValue(DONETSK);
+                    mNavController.navigate(R.id.newsFragment);
+                    mToolbar.setNavigationIcon(R.drawable.ic_menu_24dp);
+                    break;
+                case R.id.nav_sumy:
+                    viewModel.setNewsNavigationTypeValue(SUMY);
+                    mNavController.navigate(R.id.newsFragment);
                     mToolbar.setNavigationIcon(R.drawable.ic_menu_24dp);
                     break;
                 default:
