@@ -17,11 +17,13 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.example.newsblender.classes.ItemViewModel;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -35,24 +37,57 @@ import com.google.firebase.storage.StorageReference;
 import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
+    /* Constants for type of news */
+    private static final int ALL_NEWS = 0;
+    private static final int VINNUTSIA = 1;
+    private static final int VOLYN = 2;
+    private static final int DNIPROPETROVSK = 3;
+    private static final int TRANSCARPATHIAN = 4;
+    private static final int ZAPORIZHZHIA = 5;
+    private static final int IVANO_FRANKIVSK = 6;
+    private static final int KYIV = 7;
+    private static final int KIROVOHRAD = 8;
+    private static final int LVIV = 9;
+    private static final int MYKOLAYIV = 10;
+    private static final int ODESA = 11;
+    private static final int RIVNE = 12;
+    private static final int TERNOPIL = 13;
+    private static final int KHARKIV = 14;
+    private static final int KHERSON = 15;
+    private static final int KHMELNYTSKY = 16;
+    private static final int CHERKASY = 17;
+    private static final int CHERNIHIV = 18;
+    private static final int CHERNIVTSI = 19;
+    private static final int ZHYTOMYR = 20;
+    private static final int POLTAVA = 21;
+    private static final int LUHANSK = 22;
+    private static final int DONETSK = 23;
+    private static final int SUMY = 24;
+
+    /* Variables */
     private FirebaseAuth fAuth;
     private FirebaseFirestore fStore;
     private StorageReference mStorageReference;
     private GoogleSignInClient mSignInClient;
+
     //    private final int uiFlags = View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-////            | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-////            | View.SYSTEM_UI_FLAG_FULLSCREEN
-//            | View.SYSTEM_UI_FLAG_IMMERSIVE;
+    //            | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+    //            | View.SYSTEM_UI_FLAG_FULLSCREEN
+    //            | View.SYSTEM_UI_FLAG_IMMERSIVE;
+
     private DrawerLayout mDrawerLayout;
     private NavigationView mNavigationView;
     private NavController mNavController;
     private Toolbar mToolbar;
     private AppBarConfiguration mAppBarConfiguration;
     private FirebaseUser fUser;
+    private ItemViewModel viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        viewModel = new ViewModelProvider(this).get(ItemViewModel.class);
+        viewModel.setNewsNavigationTypeValue(ZAPORIZHZHIA);
         setContentView(R.layout.activity_main);
 
         /* Setting main variables */
@@ -94,6 +129,7 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), menuItem.getTitle().toString(), Toast.LENGTH_SHORT).show();
             switch (menuItem.getItemId()) {
                 case R.id.nav_news:
+                    viewModel.setNewsNavigationTypeValue(ZAPORIZHZHIA);
                     mNavController.navigate(R.id.newsFragment);
                     mToolbar.setNavigationIcon(R.drawable.ic_menu_24dp);
                     break;
