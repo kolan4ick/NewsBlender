@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -17,6 +19,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.newsblender.classes.Util;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -53,92 +56,99 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        if (Util.isNetworkAvailable((ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE))) {
+            mEmailInput = findViewById(R.id.email_input_sign_in);
+            mPasswordInput = findViewById(R.id.password_input_sign_in);
+            mRegisterTextView = findViewById(R.id.register_text_view);
+            mPassForgotTextView = findViewById(R.id.pass_forgot_textview);
+            mSignInButton = findViewById(R.id.sign_in_button);
+            mSignInButtonGoogle = findViewById(R.id.sign_in_google_button);
+            mProgressBar = findViewById(R.id.progressBar);
+            fAuth = FirebaseAuth.getInstance();
 
-        mEmailInput = findViewById(R.id.email_input_sign_in);
-        mPasswordInput = findViewById(R.id.password_input_sign_in);
-        mRegisterTextView = findViewById(R.id.register_text_view);
-        mPassForgotTextView = findViewById(R.id.pass_forgot_textview);
-        mSignInButton = findViewById(R.id.sign_in_button);
-        mSignInButtonGoogle = findViewById(R.id.sign_in_google_button);
-        mProgressBar = findViewById(R.id.progressBar);
-        fAuth = FirebaseAuth.getInstance();
-
-        if (fAuth.getCurrentUser() != null) {
-            startActivity(new Intent(getApplicationContext(), MainActivity.class));
-            finish();
-        }
-
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client_id))
-                .requestEmail()
-                .build();
-
-        mSignInClient = GoogleSignIn.getClient(this, gso);
-
-        mSignInButton.setOnClickListener(view -> {
-
-            String email = mEmailInput.getText().toString().trim();
-            String password = mPasswordInput.getText().toString().trim();
-
-            if (TextUtils.isEmpty(email)) {
-                mEmailInput.setError("Email is Required.");
-                return;
+            if (fAuth.getCurrentUser() != null) {
+                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                finish();
             }
 
-            if (TextUtils.isEmpty(password)) {
-                mPasswordInput.setError("Password is Required.");
-                return;
-            }
+            GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                    .requestIdToken(getString(R.string.default_web_client_id))
+                    .requestEmail()
+                    .build();
 
-            if (password.length() < 6) {
-                mPasswordInput.setError("Password Must be >= 6 Characters");
-                return;
-            }
+            mSignInClient = GoogleSignIn.getClient(this, gso);
 
-            mProgressBar.setVisibility(View.VISIBLE);
+            mSignInButton.setOnClickListener(view -> {
 
-            fAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
-                if (task.isSuccessful()) {
-                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                    imm.hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.RESULT_UNCHANGED_SHOWN);
-                    Toast.makeText(LoginActivity.this, "Logged in Successfully", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                String email = mEmailInput.getText().toString().trim();
+                String password = mPasswordInput.getText().toString().trim();
 
-                } else {
-                    Toast.makeText(LoginActivity.this, "Error ! " + Objects.requireNonNull(task.getException()).getMessage(), Toast.LENGTH_SHORT).show();
-                    mProgressBar.setVisibility(View.GONE);
+                if (TextUtils.isEmpty(email)) {
+                    mEmailInput.setError("Email is Required.");
+                    return;
                 }
+
+                if (TextUtils.isEmpty(password)) {
+                    mPasswordInput.setError("Password is Required.");
+                    return;
+                }
+
+                if (password.length() < 6) {
+                    mPasswordInput.setError("Password Must be >= 6 Characters");
+                    return;
+                }
+
+                mProgressBar.setVisibility(View.VISIBLE);
+
+                fAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                        imm.hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.RESULT_UNCHANGED_SHOWN);
+                        Toast.makeText(LoginActivity.this, "Logged in Successfully", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+
+                    } else {
+                        Toast.makeText(LoginActivity.this, "Error ! " + Objects.requireNonNull(task.getException()).getMessage(), Toast.LENGTH_SHORT).show();
+                        mProgressBar.setVisibility(View.GONE);
+                    }
+                });
             });
-        });
 
-        mSignInButtonGoogle.setOnClickListener(view -> {
-            Intent signInIntent = mSignInClient.getSignInIntent();
-            startActivityForResult(signInIntent, RC_SIGN_IN);
-        });
-
-        mRegisterTextView.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), RegisterActivity.class)));
-
-        mPassForgotTextView.setOnClickListener(view -> {
-            final EditText resetMail = new EditText(view.getContext());
-            final AlertDialog.Builder passwordResetDialog = new AlertDialog.Builder(view.getContext());
-            passwordResetDialog.setTitle("Reset Password ?");
-            passwordResetDialog.setMessage("Enter Your Email To Received Reset Link.");
-            passwordResetDialog.setView(resetMail);
-
-            passwordResetDialog.setPositiveButton("Yes", (dialog, which) -> {
-                // extract the email and send reset link
-                String mail = resetMail.getText().toString();
-                fAuth.sendPasswordResetEmail(mail).addOnSuccessListener(aVoid ->
-                        Toast.makeText(LoginActivity.this, "Reset Link Sent To Your Email.", Toast.LENGTH_SHORT).show())
-                        .addOnFailureListener(e -> Toast.makeText(LoginActivity.this, "Error ! Reset Link is Not Sent" + e.getMessage(), Toast.LENGTH_SHORT).show());
-
+            mSignInButtonGoogle.setOnClickListener(view -> {
+                Intent signInIntent = mSignInClient.getSignInIntent();
+                startActivityForResult(signInIntent, RC_SIGN_IN);
             });
-            passwordResetDialog.setNegativeButton("No", (dialog, which) -> {
-                // close the dialog
-            });
-            passwordResetDialog.create().show();
-        });
 
+            mRegisterTextView.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), RegisterActivity.class)));
+
+            mPassForgotTextView.setOnClickListener(view -> {
+                final EditText resetMail = new EditText(view.getContext());
+                final AlertDialog.Builder passwordResetDialog = new AlertDialog.Builder(view.getContext());
+                passwordResetDialog.setTitle("Reset Password ?");
+                passwordResetDialog.setMessage("Enter Your Email To Received Reset Link.");
+                passwordResetDialog.setView(resetMail);
+
+                passwordResetDialog.setPositiveButton("Yes", (dialog, which) -> {
+                    // extract the email and send reset link
+                    String mail = resetMail.getText().toString();
+                    fAuth.sendPasswordResetEmail(mail).addOnSuccessListener(aVoid ->
+                            Toast.makeText(LoginActivity.this, "Reset Link Sent To Your Email.", Toast.LENGTH_SHORT).show())
+                            .addOnFailureListener(e -> Toast.makeText(LoginActivity.this, "Error ! Reset Link is Not Sent" + e.getMessage(), Toast.LENGTH_SHORT).show());
+
+                });
+                passwordResetDialog.setNegativeButton("No", (dialog, which) -> {
+                    // close the dialog
+                });
+                passwordResetDialog.create().show();
+            });
+        } else {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage("You do not have access to the Internet, turn it on and restart the application")
+                    .setTitle("Error");
+            AlertDialog dialog = builder.create();
+            dialog.setCancelable(false);
+            dialog.show();
+        }
     }
 
     @Override

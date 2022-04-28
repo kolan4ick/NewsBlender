@@ -82,13 +82,14 @@ public class TelegramNews {
             sliderView.setIndicatorEnabled(true);
             sliderView.setSliderAdapter(new CustomSliderAdapter(context, photoLinks), false);
             sliderView.setIndicatorAnimation(IndicatorAnimationType.SLIDE); //set indicator animation by using SliderLayout.IndicatorAnimations. :WORM or THIN_WORM or COLOR or DROP or FILL or NONE or SCALE or SCALE_DOWN or SLIDE and SWAP!!
-            sliderView.setSliderTransformAnimation(SliderAnimations.CUBEINDEPTHTRANSFORMATION);
+            sliderView.setSliderTransformAnimation(SliderAnimations.SIMPLETRANSFORMATION);
             sliderView.setIndicatorSelectedColor(Color.BLACK);
             sliderView.setIndicatorUnselectedColor(Color.WHITE);
             sliderView.setScrollTimeInSec(3);
             sliderView.setIndicatorRadius(5);
             sliderView.addView(imageView);
         }
+
         /* Add all views to ConstraintLayout */
         sliderView.setMinimumHeight(768);
         constraintLayout.addView(ownerName);

@@ -49,7 +49,6 @@ public class CustomSliderAdapter extends
                 .load(sliderItem.getImageUrl())
                 .fitCenter()
                 .into(viewHolder.imageViewBackground);
-        viewHolder.itemView.setOnClickListener(v -> Toast.makeText(context, "This is item in position " + position, Toast.LENGTH_SHORT).show());
     }
 
     @Override

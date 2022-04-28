@@ -33,6 +33,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Objects;
 import java.util.TimeZone;
+import java.util.Timer;
 
 public class TelegramNewsContent extends AsyncTask<Void, Void, Void> {
     private StringBuilder link;

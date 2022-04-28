@@ -1,8 +1,10 @@
 package com.example.newsblender.fragments;
 
 import android.content.Context;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -18,8 +20,10 @@ import com.example.newsblender.R;
 import com.example.newsblender.classes.ItemViewModel;
 import com.example.newsblender.classes.TelegramNews;
 import com.example.newsblender.classes.TelegramNewsContent;
+import com.example.newsblender.classes.Util;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -80,10 +84,19 @@ public class NewsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View mView = inflater.inflate(R.layout.fragment_news, container, false);
-        mViewModel = new ViewModelProvider(requireActivity()).get(ItemViewModel.class);
-        mProgressBarNewsFragment = mView.findViewById(R.id.progressBarNewsFragment);
-        mScrollView = mView.findViewById(R.id.scrollViewNewsFragment);
-        assignNews();
+        if (Util.isNetworkAvailable((ConnectivityManager) requireActivity().getSystemService(Context.CONNECTIVITY_SERVICE))) {
+            mViewModel = new ViewModelProvider(requireActivity()).get(ItemViewModel.class);
+            mProgressBarNewsFragment = mView.findViewById(R.id.progressBarNewsFragment);
+            mScrollView = mView.findViewById(R.id.scrollViewNewsFragment);
+            assignNews();
+        } else {
+            AlertDialog.Builder builder = new AlertDialog.Builder(mView.getContext());
+            builder.setMessage("You do not have access to the Internet, turn it on and restart the application")
+                    .setTitle("Error");
+            AlertDialog dialog = builder.create();
+            dialog.setCancelable(false);
+            dialog.show();
+        }
         return mView;
     }
 
