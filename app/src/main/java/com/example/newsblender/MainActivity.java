@@ -143,6 +143,7 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
             Toast.makeText(getApplicationContext(), menuItem.getTitle().toString(), Toast.LENGTH_SHORT).show();
+//            TODO: Optimize it
             switch (menuItem.getItemId()) {
                 case R.id.nav_news:
                     viewModel.setNewsNavigationTypeValue(ALL_NEWS);
