@@ -23,6 +23,7 @@ import com.example.newsblender.classes.TelegramNewsContent;
 import com.example.newsblender.classes.Util;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Objects;
 
 /**
@@ -32,38 +33,60 @@ import java.util.Objects;
  */
 public class NewsFragment extends Fragment {
     /* Constants for type of news */
-    private static final int ALL_NEWS = 0;
-    private static final int VINNUTSIA = 1;
-    private static final int VOLYN = 2;
-    private static final int DNIPROPETROVSK = 3;
-    private static final int TRANSCARPATHIAN = 4;
-    private static final int ZAPORIZHZHIA = 5;
-    private static final int IVANO_FRANKIVSK = 6;
-    private static final int KYIV = 7;
-    private static final int KIROVOHRAD = 8;
-    private static final int LVIV = 9;
-    private static final int MYKOLAYIV = 10;
-    private static final int ODESA = 11;
-    private static final int RIVNE = 12;
-    private static final int TERNOPIL = 13;
-    private static final int KHARKIV = 14;
-    private static final int KHERSON = 15;
-    private static final int KHMELNYTSKY = 16;
-    private static final int CHERKASY = 17;
-    private static final int CHERNIHIV = 18;
-    private static final int CHERNIVTSI = 19;
-    private static final int ZHYTOMYR = 20;
-    private static final int POLTAVA = 21;
-    private static final int LUHANSK = 22;
-    private static final int DONETSK = 23;
-    private static final int SUMY = 24;
-    private static String[] telegramLinks = {"_", "https://t.me/vinnytskaODA", "https://t.me/volynskaODA", "https://t.me/dnipropetrovskaODA",
-            "https://t.me/zakarpatskaODA", "https://t.me/starukhofficial", "https://t.me/onyshchuksvitlana", "https://t.me/kyivoda",
-            "https://t.me/chornamary", "https://t.me/kozytskyy_maksym_official", "https://t.me/mykolaivskaODA", "https://t.me/odeskaODA",
-            "https://t.me/vitalykoval8", "https://t.me/ternopilskaODA", "https://t.me/synegubov", "https://t.me/khersonskaODA",
-            "https://t.me/khmelnytskaODA", "https://t.me/cherkaskaODA", "https://t.me/chernigivskaODA", "https://t.me/chernivetskaODA",
-            "https://t.me/zhytomyrskaODA", "https://t.me/DMYTROLUNIN", "https://t.me/luhanskaVTSA", "https://t.me/pavlokyrylenko_donoda",
-            "https://t.me/Zhyvytskyy"};
+    private static final int ALL_NEWS = 1000020;
+    private static final int VINNUTSIA = 1000019;
+    private static final int VOLYN = 1000017;
+    private static final int DNIPROPETROVSK = 1000032;
+    private static final int TRANSCARPATHIAN = 1000051;
+    private static final int ZAPORIZHZHIA = 1000048;
+    private static final int IVANO_FRANKIVSK = 1000003;
+    private static final int KYIV = 1000047;
+    private static final int KIROVOHRAD = 1000045;
+    private static final int LVIV = 1000009;
+    private static final int MYKOLAYIV = 1000026;
+    private static final int ODESA = 1000015;
+    private static final int RIVNE = 1000010;
+    private static final int TERNOPIL = 1000021;
+    private static final int KHARKIV = 1000040;
+    private static final int KHERSON = 1000029;
+    private static final int KHMELNYTSKY = 1000036;
+    private static final int CHERKASY = 1000000;
+    private static final int CHERNIHIV = 1000011;
+    private static final int CHERNIVTSI = 1000033;
+    private static final int ZHYTOMYR = 1000053;
+    private static final int POLTAVA = 1000052;
+    private static final int LUHANSK = 1000034;
+    private static final int DONETSK = 1000018;
+    private static final int SUMY = 1000042;
+    private static final HashMap<Integer, String> telegram_news = new HashMap<Integer, String>() {
+    {
+        put(ALL_NEWS, "https://allnews");
+        put(VINNUTSIA, "https://t.me/vinnytskaODA");
+        put(VOLYN, "https://t.me/volynskaODA");
+        put(DNIPROPETROVSK, "https://t.me/dnipropetrovskaODA");
+        put(TRANSCARPATHIAN, "https://t.me/zakarpatskaODA");
+        put(ZAPORIZHZHIA, "https://t.me/starukhofficial");
+        put(IVANO_FRANKIVSK, "https://t.me/onyshchuksvitlana");
+        put(KYIV, "https://t.me/kyivoda");
+        put(KIROVOHRAD, "https://t.me/chornamary");
+        put(LVIV, "https://t.me/kozytskyy_maksym_official");
+        put(MYKOLAYIV, "https://t.me/mykolaivskaODA");
+        put(ODESA, "https://t.me/odeskaODA");
+        put(RIVNE, "https://t.me/vitalykoval8");
+        put(TERNOPIL, "https://t.me/ternopilskaODA");
+        put(KHARKIV, "https://t.me/synegubov");
+        put(KHERSON, "https://t.me/khersonskaODA");
+        put(KHMELNYTSKY, "https://t.me/khmelnytskaODA");
+        put(CHERKASY, "https://t.me/cherkaskaODA");
+        put(CHERNIHIV, "https://t.me/chernigivskaODA");
+        put(CHERNIVTSI, "https://t.me/chernivetskaODA");
+        put(ZHYTOMYR, "https://t.me/zhytomyrskaODA");
+        put(POLTAVA, "https://t.me/DMYTROLUNIN");
+        put(LUHANSK, "https://t.me/luhanskaVTSA");
+        put(DONETSK, "https://t.me/pavlokyrylenko_donoda");
+        put(SUMY, "https://t.me/Zhyvytskyy");
+    }};
+
     /* Variables */
     private ItemViewModel mViewModel;
     private ArrayList<TelegramNews> mTelegramNews;
@@ -104,7 +127,8 @@ public class NewsFragment extends Fragment {
         if (mViewModel.getNewsNavigationTypeValue() == ALL_NEWS) {
             Toast.makeText(getContext(), "ALL", Toast.LENGTH_SHORT).show();
         } else {
-            new TelegramNewsContent(new StringBuilder(telegramLinks[mViewModel.getNewsNavigationTypeValue()]), getContext(), mProgressBarNewsFragment, mScrollView).execute();
+
+            new TelegramNewsContent(new StringBuilder(Objects.requireNonNull(telegram_news.get(mViewModel.getNewsNavigationTypeValue()))), getContext(), mProgressBarNewsFragment, mScrollView).execute();
         }
     }
 }
