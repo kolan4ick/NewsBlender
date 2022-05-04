@@ -42,6 +42,7 @@ public class LoginActivity extends AppCompatActivity {
     private TextView mPassForgotTextView;
     private Button mSignInButton;
     private SignInButton mSignInButtonGoogle;
+    private Button mSignInButtonIncognito;
     private ProgressBar mProgressBar;
     private FirebaseAuth fAuth;
     private GoogleSignInClient mSignInClient;
@@ -63,6 +64,7 @@ public class LoginActivity extends AppCompatActivity {
             mPassForgotTextView = findViewById(R.id.pass_forgot_textview);
             mSignInButton = findViewById(R.id.sign_in_button);
             mSignInButtonGoogle = findViewById(R.id.sign_in_google_button);
+            mSignInButtonIncognito = findViewById(R.id.sign_in_incognito);
             mProgressBar = findViewById(R.id.progressBar);
             fAuth = FirebaseAuth.getInstance();
 
@@ -77,6 +79,17 @@ public class LoginActivity extends AppCompatActivity {
                     .build();
 
             mSignInClient = GoogleSignIn.getClient(this, gso);
+
+            mSignInButtonIncognito.setOnClickListener(view -> {
+                mProgressBar.setVisibility(View.VISIBLE);
+
+                fAuth.signInAnonymously().addOnCompleteListener(this, task -> {
+                    if (task.isSuccessful()) {
+                        Toast.makeText(LoginActivity.this, "Logged in Successfully", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                    }
+                });
+            });
 
             mSignInButton.setOnClickListener(view -> {
 
