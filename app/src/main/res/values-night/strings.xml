@@ -29,4 +29,21 @@
     <string name="luhansk">Луганська</string>
     <string name="donetsk">Донецька</string>
     <string name="sumy">Сумська</string>
+    <string name="user_profile">Інформація користувача</string>
+    <string name="news_resources">Новинні ресурси</string>
+    <string name="saved">Збережені</string>
+    <string name="settings_profile">Налаштування профіля</string>
+    <string name="application_settings">Налаштування додатку</string>
+    <string name="sign_out_incognito">Вихід з Incognito</string>
+    <string name="userProfileTitleTextView">Користувацька інформація</string>
+    <string name="registerDateTextView">Дата реєстрації:</string>
+    <string name="userLoginTextView">Логін користувача:</string>
+    <string name="userInboxTextView">Поштова скринька:</string>
+    <string name="okButton">ОК</string>
+    <string name="exitButton">Вихід</string>
+    <string name="preferences_theme">Тема</string>
+    <string name="font_size">Розмір шрифта</string>
+    <string name="font">Шрифт</string>
+    <string name="language">Мова</string>
+    <string name="news_count">Кількість новин для зберігання</string>
 </resources>

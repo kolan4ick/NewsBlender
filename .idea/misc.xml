@@ -3,14 +3,23 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/StudioProjects/NewsBlender/app/src/main/res/drawable/background_tint.xml" value="0.3005" />
+        <entry key="..\:/StudioProjects/NewsBlender/app/src/main/res/drawable/ic_application_settings.xml" value="0.3005" />
         <entry key="..\:/StudioProjects/NewsBlender/app/src/main/res/drawable/ic_avatar_incognito.xml" value="0.3005" />
+        <entry key="..\:/StudioProjects/NewsBlender/app/src/main/res/drawable/ic_avatar_incognito_24dp.xml" value="0.3005" />
+        <entry key="..\:/StudioProjects/NewsBlender/app/src/main/res/drawable/ic_empty_avatar.xml" value="0.3005" />
         <entry key="..\:/StudioProjects/NewsBlender/app/src/main/res/drawable/ic_launcher_background.xml" value="0.152" />
         <entry key="..\:/StudioProjects/NewsBlender/app/src/main/res/drawable/ic_menu.xml" value="0.2995" />
         <entry key="..\:/StudioProjects/NewsBlender/app/src/main/res/drawable/ic_menu_24dp.xml" value="0.3005" />
         <entry key="..\:/StudioProjects/NewsBlender/app/src/main/res/drawable/ic_menu_slideshow.xml" value="0.3005" />
+        <entry key="..\:/StudioProjects/NewsBlender/app/src/main/res/drawable/ic_news_resources.xml" value="0.3005" />
+        <entry key="..\:/StudioProjects/NewsBlender/app/src/main/res/drawable/ic_saved.xml" value="0.3005" />
+        <entry key="..\:/StudioProjects/NewsBlender/app/src/main/res/drawable/ic_settings_profile.xml" value="0.3005" />
         <entry key="..\:/StudioProjects/NewsBlender/app/src/main/res/drawable/ic_user_icon.xml" value="0.3005" />
         <entry key="..\:/StudioProjects/NewsBlender/app/src/main/res/drawable/ic_user_menu_24dp.xml" value="0.188" />
+        <entry key="..\:/StudioProjects/NewsBlender/app/src/main/res/drawable/ic_user_profile.xml" value="0.3005" />
         <entry key="..\:/StudioProjects/NewsBlender/app/src/main/res/drawable/rectangle_gradient.xml" value="0.3005" />
+        <entry key="..\:/StudioProjects/NewsBlender/app/src/main/res/drawable/rectangle_gradient_incognito.xml" value="0.3005" />
         <entry key="..\:/StudioProjects/NewsBlender/app/src/main/res/drawable/side_nav_bar.xml" value="0.3005" />
         <entry key="..\:/StudioProjects/NewsBlender/app/src/main/res/drawable/user_icon.xml" value="0.184" />
         <entry key="..\:/StudioProjects/NewsBlender/app/src/main/res/layout/actionbar_custom_view_home.xml" value="0.3567708333333333" />
@@ -21,13 +30,19 @@
         <entry key="..\:/StudioProjects/NewsBlender/app/src/main/res/layout/app_bar.xml" value="0.3567708333333333" />
         <entry key="..\:/StudioProjects/NewsBlender/app/src/main/res/layout/app_bar_main.xml" value="0.3567708333333333" />
         <entry key="..\:/StudioProjects/NewsBlender/app/src/main/res/layout/asd.xml" value="0.1796875" />
+        <entry key="..\:/StudioProjects/NewsBlender/app/src/main/res/layout/background_tint.xml" value="0.3567708333333333" />
         <entry key="..\:/StudioProjects/NewsBlender/app/src/main/res/layout/content_main.xml" value="0.3567708333333333" />
         <entry key="..\:/StudioProjects/NewsBlender/app/src/main/res/layout/drawer_layout.xml" value="0.1796875" />
         <entry key="..\:/StudioProjects/NewsBlender/app/src/main/res/layout/fragment_authorization.xml" value="0.1796875" />
         <entry key="..\:/StudioProjects/NewsBlender/app/src/main/res/layout/fragment_news.xml" value="0.3567708333333333" />
+        <entry key="..\:/StudioProjects/NewsBlender/app/src/main/res/layout/fragment_profile.xml" value="0.33" />
+        <entry key="..\:/StudioProjects/NewsBlender/app/src/main/res/layout/fragment_profile_settings.xml" value="0.34270833333333334" />
+        <entry key="..\:/StudioProjects/NewsBlender/app/src/main/res/layout/fragment_saved_news.xml" value="0.3567708333333333" />
         <entry key="..\:/StudioProjects/NewsBlender/app/src/main/res/layout/image_slider_layout_item.xml" value="0.3567708333333333" />
         <entry key="..\:/StudioProjects/NewsBlender/app/src/main/res/layout/nav_header_main.xml" value="0.3567708333333333" />
-        <entry key="..\:/StudioProjects/NewsBlender/app/src/main/res/layout/popup_window.xml" value="0.3567708333333333" />
+        <entry key="..\:/StudioProjects/NewsBlender/app/src/main/res/layout/pop_up_params.xml" value="0.3567708333333333" />
+        <entry key="..\:/StudioProjects/NewsBlender/app/src/main/res/layout/pop_up_params_anonym.xml" value="0.3567708333333333" />
+        <entry key="..\:/StudioProjects/NewsBlender/app/src/main/res/layout/popup_window.xml" value="0.2" />
         <entry key="..\:/StudioProjects/NewsBlender/app/src/main/res/menu/activity_main_drawer.xml" value="0.3567708333333333" />
         <entry key="..\:/StudioProjects/NewsBlender/app/src/main/res/menu/nav_view.xml" value="0.3567708333333333" />
         <entry key="..\:/StudioProjects/NewsBlender/app/src/main/res/menu/navigation_view.xml" value="0.67" />

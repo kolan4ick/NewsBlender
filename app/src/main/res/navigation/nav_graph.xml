@@ -13,4 +13,19 @@
             android:id="@+id/settingsFragment"
             android:name="com.example.newsblender.fragments.SettingsFragment"
             android:label="SettingsFragment" />
+    <fragment
+            android:id="@+id/profileSettingsFragment"
+            android:name="com.example.newsblender.fragments.ProfileSettingsFragment"
+            android:label="fragment_profile_settings"
+            tools:layout="@layout/fragment_profile_settings" />
+    <fragment
+            android:id="@+id/profileFragment"
+            android:name="com.example.newsblender.fragments.ProfileFragment"
+            android:label="fragment_profile"
+            tools:layout="@layout/fragment_profile" />
+    <fragment
+            android:id="@+id/savedNewsFragment"
+            android:name="com.example.newsblender.fragments.SavedNewsFragment"
+            android:label="fragment_saved_news"
+            tools:layout="@layout/fragment_saved_news" />
 </navigation>
