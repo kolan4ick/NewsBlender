@@ -52,31 +52,31 @@ import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
     /* Constants for type of news */
-    private static final int ALL_NEWS = 1000020;
-    private static final int VINNUTSIA = 1000019;
-    private static final int VOLYN = 1000017;
-    private static final int DNIPROPETROVSK = 1000032;
-    private static final int TRANSCARPATHIAN = 1000051;
-    private static final int ZAPORIZHZHIA = 1000048;
-    private static final int IVANO_FRANKIVSK = 1000003;
-    private static final int KYIV = 1000047;
-    private static final int KIROVOHRAD = 1000045;
-    private static final int LVIV = 1000009;
-    private static final int MYKOLAYIV = 1000026;
-    private static final int ODESA = 1000015;
-    private static final int RIVNE = 1000010;
-    private static final int TERNOPIL = 1000021;
-    private static final int KHARKIV = 1000040;
-    private static final int KHERSON = 1000029;
-    private static final int KHMELNYTSKY = 1000036;
-    private static final int CHERKASY = 1000000;
-    private static final int CHERNIHIV = 1000011;
-    private static final int CHERNIVTSI = 1000033;
-    private static final int ZHYTOMYR = 1000053;
-    private static final int POLTAVA = 1000052;
-    private static final int LUHANSK = 1000034;
-    private static final int DONETSK = 1000018;
-    private static final int SUMY = 1000042;
+    private static final int ALL_NEWS = R.id.nav_news;
+    private static final int VINNUTSIA = R.id.nav_vinnutsia;
+    private static final int VOLYN = R.id.nav_volyn;
+    private static final int DNIPROPETROVSK = R.id.nav_dnipropetrovsk;
+    private static final int TRANSCARPATHIAN = R.id.nav_transcarpathian;
+    private static final int ZAPORIZHZHIA = R.id.nav_zaporizhzhia;
+    private static final int IVANO_FRANKIVSK = R.id.nav_ivano_frankivsk;
+    private static final int KYIV = R.id.nav_kyiv;
+    private static final int KIROVOHRAD = R.id.nav_kirovohrad;
+    private static final int LVIV = R.id.nav_lviv;
+    private static final int MYKOLAYIV = R.id.nav_mykolayiv;
+    private static final int ODESA = R.id.nav_odesa;
+    private static final int RIVNE = R.id.nav_rivne;
+    private static final int TERNOPIL = R.id.nav_ternopil;
+    private static final int KHARKIV = R.id.nav_kharkiv;
+    private static final int KHERSON = R.id.nav_kherson;
+    private static final int KHMELNYTSKY = R.id.nav_khmelnytsky;
+    private static final int CHERKASY = R.id.nav_cherkasy;
+    private static final int CHERNIHIV = R.id.nav_chernihiv;
+    private static final int CHERNIVTSI = R.id.nav_chernivtsi;
+    private static final int ZHYTOMYR = R.id.nav_zhytomyr;
+    private static final int POLTAVA = R.id.nav_poltava;
+    private static final int LUHANSK = R.id.nav_luhansk;
+    private static final int DONETSK = R.id.nav_donetsk;
+    private static final int SUMY = R.id.nav_sumy;
 
     /* Variables */
     private FirebaseAuth fAuth;
@@ -143,139 +143,9 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
             Toast.makeText(getApplicationContext(), menuItem.getTitle().toString(), Toast.LENGTH_SHORT).show();
-//            TODO: Optimize it
             viewModel.setNewsNavigationTypeValue(menuItem.getItemId());
             mNavController.navigate(R.id.newsFragment);
             mToolbar.setNavigationIcon(R.drawable.ic_menu_24dp);
-//            switch (menuItem.getItemId()) {
-//                case R.id.nav_news:
-//                    viewModel.setNewsNavigationTypeValue(ALL_NEWS);
-//                    mNavController.navigate(R.id.newsFragment);
-//                    mToolbar.setNavigationIcon(R.drawable.ic_menu_24dp);
-//                    break;
-//                case R.id.nav_vinnutsia:
-//                    viewModel.setNewsNavigationTypeValue(VINNUTSIA);
-//                    mNavController.navigate(R.id.newsFragment);
-//                    mToolbar.setNavigationIcon(R.drawable.ic_menu_24dp);
-//                    break;
-//                case R.id.nav_volyn:
-//                    viewModel.setNewsNavigationTypeValue(VOLYN);
-//                    mNavController.navigate(R.id.newsFragment);
-//                    mToolbar.setNavigationIcon(R.drawable.ic_menu_24dp);
-//                    break;
-//                case R.id.nav_dnipropetrovsk:
-//                    viewModel.setNewsNavigationTypeValue(DNIPROPETROVSK);
-//                    mNavController.navigate(R.id.newsFragment);
-//                    mToolbar.setNavigationIcon(R.drawable.ic_menu_24dp);
-//                    break;
-//                case R.id.nav_transcarpathian:
-//                    viewModel.setNewsNavigationTypeValue(TRANSCARPATHIAN);
-//                    mNavController.navigate(R.id.newsFragment);
-//                    mToolbar.setNavigationIcon(R.drawable.ic_menu_24dp);
-//                    break;
-//                case R.id.nav_zaporizhzhia:
-//                    viewModel.setNewsNavigationTypeValue(ZAPORIZHZHIA);
-//                    mNavController.navigate(R.id.newsFragment);
-//                    mToolbar.setNavigationIcon(R.drawable.ic_menu_24dp);
-//                    break;
-//                case R.id.nav_ivano_frankivsk:
-//                    viewModel.setNewsNavigationTypeValue(IVANO_FRANKIVSK);
-//                    mNavController.navigate(R.id.newsFragment);
-//                    mToolbar.setNavigationIcon(R.drawable.ic_menu_24dp);
-//                    break;
-//                case R.id.nav_kyiv:
-//                    viewModel.setNewsNavigationTypeValue(KYIV);
-//                    mNavController.navigate(R.id.newsFragment);
-//                    mToolbar.setNavigationIcon(R.drawable.ic_menu_24dp);
-//                    break;
-//                case R.id.nav_kirovohrad:
-//                    viewModel.setNewsNavigationTypeValue(KIROVOHRAD);
-//                    mNavController.navigate(R.id.newsFragment);
-//                    mToolbar.setNavigationIcon(R.drawable.ic_menu_24dp);
-//                    break;
-//                case R.id.nav_lviv:
-//                    viewModel.setNewsNavigationTypeValue(LVIV);
-//                    mNavController.navigate(R.id.newsFragment);
-//                    mToolbar.setNavigationIcon(R.drawable.ic_menu_24dp);
-//                    break;
-//                case R.id.nav_mykolayiv:
-//                    viewModel.setNewsNavigationTypeValue(MYKOLAYIV);
-//                    mNavController.navigate(R.id.newsFragment);
-//                    mToolbar.setNavigationIcon(R.drawable.ic_menu_24dp);
-//                    break;
-//                case R.id.nav_odesa:
-//                    viewModel.setNewsNavigationTypeValue(ODESA);
-//                    mNavController.navigate(R.id.newsFragment);
-//                    mToolbar.setNavigationIcon(R.drawable.ic_menu_24dp);
-//                    break;
-//                case R.id.nav_rivne:
-//                    viewModel.setNewsNavigationTypeValue(RIVNE);
-//                    mNavController.navigate(R.id.newsFragment);
-//                    mToolbar.setNavigationIcon(R.drawable.ic_menu_24dp);
-//                    break;
-//                case R.id.nav_ternopil:
-//                    viewModel.setNewsNavigationTypeValue(TERNOPIL);
-//                    mNavController.navigate(R.id.newsFragment);
-//                    mToolbar.setNavigationIcon(R.drawable.ic_menu_24dp);
-//                    break;
-//                case R.id.nav_kharkiv:
-//                    viewModel.setNewsNavigationTypeValue(KHARKIV);
-//                    mNavController.navigate(R.id.newsFragment);
-//                    mToolbar.setNavigationIcon(R.drawable.ic_menu_24dp);
-//                    break;
-//                case R.id.nav_kherson:
-//                    viewModel.setNewsNavigationTypeValue(KHERSON);
-//                    mNavController.navigate(R.id.newsFragment);
-//                    mToolbar.setNavigationIcon(R.drawable.ic_menu_24dp);
-//                    break;
-//                case R.id.nav_khmelnytsky:
-//                    viewModel.setNewsNavigationTypeValue(KHMELNYTSKY);
-//                    mNavController.navigate(R.id.newsFragment);
-//                    mToolbar.setNavigationIcon(R.drawable.ic_menu_24dp);
-//                    break;
-//                case R.id.nav_cherkasy:
-//                    viewModel.setNewsNavigationTypeValue(CHERKASY);
-//                    mNavController.navigate(R.id.newsFragment);
-//                    mToolbar.setNavigationIcon(R.drawable.ic_menu_24dp);
-//                    break;
-//                case R.id.nav_chernihiv:
-//                    viewModel.setNewsNavigationTypeValue(CHERNIHIV);
-//                    mNavController.navigate(R.id.newsFragment);
-//                    mToolbar.setNavigationIcon(R.drawable.ic_menu_24dp);
-//                    break;
-//                case R.id.nav_chernivtsi:
-//                    viewModel.setNewsNavigationTypeValue(CHERNIVTSI);
-//                    mNavController.navigate(R.id.newsFragment);
-//                    mToolbar.setNavigationIcon(R.drawable.ic_menu_24dp);
-//                    break;
-//                case R.id.nav_zhytomyr:
-//                    viewModel.setNewsNavigationTypeValue(ZHYTOMYR);
-//                    mNavController.navigate(R.id.newsFragment);
-//                    mToolbar.setNavigationIcon(R.drawable.ic_menu_24dp);
-//                    break;
-//                case R.id.nav_poltava:
-//                    viewModel.setNewsNavigationTypeValue(POLTAVA);
-//                    mNavController.navigate(R.id.newsFragment);
-//                    mToolbar.setNavigationIcon(R.drawable.ic_menu_24dp);
-//                    break;
-//                case R.id.nav_luhansk:
-//                    viewModel.setNewsNavigationTypeValue(LUHANSK);
-//                    mNavController.navigate(R.id.newsFragment);
-//                    mToolbar.setNavigationIcon(R.drawable.ic_menu_24dp);
-//                    break;
-//                case R.id.nav_donetsk:
-//                    viewModel.setNewsNavigationTypeValue(DONETSK);
-//                    mNavController.navigate(R.id.newsFragment);
-//                    mToolbar.setNavigationIcon(R.drawable.ic_menu_24dp);
-//                    break;
-//                case R.id.nav_sumy:
-//                    viewModel.setNewsNavigationTypeValue(SUMY);
-//                    mNavController.navigate(R.id.newsFragment);
-//                    mToolbar.setNavigationIcon(R.drawable.ic_menu_24dp);
-//                    break;
-//                default:
-//                    mNavController.navigate(R.id.newsFragment);
-//            }
             mDrawerLayout.close();
             return true;
         });

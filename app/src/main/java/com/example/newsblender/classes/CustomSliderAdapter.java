@@ -48,6 +48,7 @@ public class CustomSliderAdapter extends
         Glide.with(viewHolder.itemView)
                 .load(sliderItem.getImageUrl())
                 .fitCenter()
+                .centerCrop()
                 .into(viewHolder.imageViewBackground);
     }
 
