@@ -20,6 +20,6 @@
             android:layout_height="match_parent"
             android:layout_gravity="start"
             android:fitsSystemWindows="true"
-            app:menu="@menu/nav_view" />
-
+            app:menu="@menu/nav_view"
+            android:background="@color/MenuColor" />
 </androidx.drawerlayout.widget.DrawerLayout>

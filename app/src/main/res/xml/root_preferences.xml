@@ -1,35 +1,41 @@
 <PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <PreferenceCategory app:title="@string/messages_header">
+    <ListPreference
+            app:key="font_size"
+            app:title="@string/font_size"
+            app:entries="@array/font_size_values"
+            app:entryValues="@array/font_size_values"
+            app:defaultValue="Середній"
+            app:useSimpleSummaryProvider="true" />
+    <ListPreference
+            app:key="font"
+            app:title="@string/font"
+            app:entries="@array/font_values"
+            app:entryValues="@array/font_values"
+            app:defaultValue="Inter"
+            app:useSimpleSummaryProvider="true" />
+    <ListPreference
+            app:key="theme"
+            app:title="@string/preferences_theme"
+            app:entries="@array/theme_values"
+            app:entryValues="@array/theme_values"
+            app:defaultValue="Світла"
+            app:useSimpleSummaryProvider="true" />
 
-        <EditTextPreference
-                app:key="signature"
-                app:title="@string/signature_title"
-                app:useSimpleSummaryProvider="true" />
+    <ListPreference
+            app:key="language"
+            app:title="@string/language"
+            app:entries="@array/language"
+            app:entryValues="@array/language"
+            app:defaultValue="Українська"
+            app:useSimpleSummaryProvider="true" />
 
-        <ListPreference
-                app:key="reply"
-                app:title="@string/reply_title"
-                app:entries="@array/reply_entries"
-                app:entryValues="@array/reply_values"
-                app:defaultValue="reply"
-                app:useSimpleSummaryProvider="true" />
-
-    </PreferenceCategory>
-
-    <PreferenceCategory app:title="@string/sync_header">
-
-        <SwitchPreferenceCompat
-                app:key="sync"
-                app:title="@string/sync_title" />
-
-        <SwitchPreferenceCompat
-                app:key="attachment"
-                app:title="@string/attachment_title"
-                app:summaryOn="@string/attachment_summary_on"
-                app:summaryOff="@string/attachment_summary_off"
-                app:dependency="sync" />
-
-    </PreferenceCategory>
+    <ListPreference
+            app:key="news_count"
+            app:title="@string/news_count"
+            app:entries="@array/news_count"
+            app:entryValues="@array/news_count"
+            app:defaultValue="5"
+            app:useSimpleSummaryProvider="true" />
 
 </PreferenceScreen>

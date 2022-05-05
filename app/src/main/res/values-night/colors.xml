@@ -9,11 +9,11 @@
     <color name="white">#FFFFFFFF</color>
     <color name="gray_tint">#80000000</color>
     <color name="clear">#00000000</color>
-    <color name="MenuColor">#FFFFFF</color>
+    <color name="MenuColor">#444444</color>
     <color name="BackgroundColor">#FFFFFF</color>
     <color name="BackGroundNewsColor">#E1E1E1</color>
-    <color name="PopUpHeaderColorFirst">#0191FD</color>
-    <color name="PopUpHeaderColorSecond">#0069B8</color>
+    <color name="PopUpHeaderColorFirst">#393A3E</color>
+    <color name="PopUpHeaderColorSecond">#393A3E </color>
     <color name="PopUpBottomColor">#FFFFFF</color>
     <color name="PopUpHeaderColorFirstIncognito">#35363A</color>
     <color name="PopUpHeaderColorSecondIncognito">#35363A</color>

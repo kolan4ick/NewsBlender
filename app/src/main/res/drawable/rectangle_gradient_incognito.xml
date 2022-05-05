@@ -29,11 +29,11 @@
                             android:endY="62.5">
 
                         <item
-                                android:color="@color/PopUpHeaderColorFirst"
+                                android:color="@color/PopUpHeaderColorFirstIncognito"
                                 android:offset="0.021" />
 
                         <item
-                                android:color="@color/PopUpHeaderColorSecond"
+                                android:color="@color/PopUpHeaderColorFirstIncognito"
                                 android:offset="1" />
 
                     </gradient>

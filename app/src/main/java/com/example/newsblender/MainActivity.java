@@ -3,6 +3,9 @@ package com.example.newsblender;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,6 +13,8 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewStub;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -20,6 +25,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
@@ -96,6 +102,11 @@ public class MainActivity extends AppCompatActivity {
     private AppBarConfiguration mAppBarConfiguration;
     private FirebaseUser fUser;
     private ItemViewModel viewModel;
+    private TextView mTextViewUserInfo;
+    private TextView mTextViewNewsResources;
+    private TextView mTextViewSaved;
+    private TextView mTextViewProfileSettings;
+    private TextView mTextViewApplicationSettings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,6 +122,8 @@ public class MainActivity extends AppCompatActivity {
         mNavigationView = findViewById(R.id.nav_view);
         mDrawerLayout = findViewById(R.id.drawer_layout);
         mNavController = Navigation.findNavController(this, R.id.activity_main_nav_host_fragment);
+        viewModel.setNavigationView(mNavController);
+        viewModel.setfAuth(fAuth);
         mToolbar = findViewById(R.id.topAppBar);
         NavigationUI.setupWithNavController(mNavigationView, mNavController);
 
@@ -178,33 +191,79 @@ public class MainActivity extends AppCompatActivity {
         LayoutInflater inflater = (LayoutInflater)
                 getSystemService(LAYOUT_INFLATER_SERVICE);
         View popupView = inflater.inflate(R.layout.popup_window, null);
+
         // create the popup window
         int width = LinearLayout.LayoutParams.WRAP_CONTENT;
         int height = LinearLayout.LayoutParams.WRAP_CONTENT;
         final PopupWindow popupWindow = new PopupWindow(popupView, width, height, true);
-        popupWindow.setOnDismissListener(() -> mDrawerLayout.setBackgroundColor(getColor(R.color.clear)));
+
+        /* If last view element is tint view - delete it */
+        popupWindow.setOnDismissListener(() -> {
+            if (mDrawerLayout.getChildAt(mDrawerLayout.getChildCount() - 1).getClass().equals(View.class))
+                mDrawerLayout.removeViewAt(mDrawerLayout.getChildCount() - 1);
+        });
+
+        TextView userName = popupView.findViewById(R.id.userMenuUsername);
+        ImageView imageView = popupView.findViewById(R.id.userMenuImageView);
+        ViewStub viewStub = popupView.findViewById(R.id.view_stub_pop_up_window);
         /* Generating popup content relatively to user anonymity*/
         if (Objects.requireNonNull(fUser).isAnonymous()) {
-            ((ImageView) popupWindow.getContentView().findViewById(R.id.userMenuImageView)).setImageDrawable(getDrawable(R.drawable.ic_avatar_incognito_24dp));
-            ((TextView) popupWindow.getContentView().findViewById(R.id.userMenuUsername)).setText(R.string.incognito);
-            Button btnTag = new Button(this);
-            btnTag.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-            btnTag.setText("Exit");
-            btnTag.setOnClickListener(v -> {/*some operation*/});
-            ((RelativeLayout) popupWindow.getContentView().findViewById(R.id.userMenuRelativeLayout)).addView(btnTag);
+            viewStub.setLayoutResource(R.layout.pop_up_params_anonym);
+
+            /* Inflate  */
+            viewStub.inflate();
+
+            imageView.setImageDrawable(getDrawable(R.drawable.ic_avatar_incognito_24dp));
+            View view1 = popupView.findViewById(R.id.popUpHeader);
+            view1.setBackgroundResource(R.drawable.rectangle_gradient_incognito);
+            userName.setText(R.string.incognito);
+            userName.setTextColor(Color.WHITE);
+            Button mButtonSignOut = popupView.findViewById(R.id.buttonSignOutAnonymous);
+            mButtonSignOut.setOnClickListener(item -> {
+                fAuth.signOut();
+                Intent login_activity = new Intent(this, LoginActivity.class);
+                startActivity(login_activity);
+            });
         } else {
             /*TODO change it to user avatar*/
-            ((ImageView) popupWindow.getContentView().findViewById(R.id.userMenuImageView)).setImageDrawable(getDrawable(R.drawable.ic_user_menu_24dp));
-            ((TextView) popupWindow.getContentView().findViewById(R.id.userMenuUsername)).setText(fUser.getDisplayName());
-            /*TODO create menu items*/
-        }
-        popupWindow.showAtLocation(view, Gravity.RIGHT | Gravity.TOP, 0, 0);
-        mDrawerLayout.setBackgroundColor(getColor(R.color.gray_tint));
-        // dismiss the popup window when touched
-//        popupView.setOnTouchListener((v, event) -> {
-//            popupWindow.dismiss();
-//            return true;
-//        });
+            imageView.setImageDrawable(getDrawable(R.drawable.ic_user_menu_24dp));
+            userName.setText(fUser.getDisplayName());
+            viewStub.setLayoutResource(R.layout.pop_up_params);
 
+            /* Inflate  */
+            viewStub.inflate();
+
+            /* Setting up popUp variables and set onClickListeners */
+            mTextViewUserInfo = popupView.findViewById(R.id.user_profile);
+            mTextViewUserInfo.setOnClickListener(item -> {
+                mNavController.navigate(R.id.profileFragment);
+                popupWindow.dismiss();
+            });
+
+            mTextViewNewsResources = popupView.findViewById(R.id.news_resources);
+
+            mTextViewSaved = popupView.findViewById(R.id.saved);
+            mTextViewSaved.setOnClickListener(item -> {
+                mNavController.navigate(R.id.savedNewsFragment);
+                popupWindow.dismiss();
+            });
+
+            mTextViewProfileSettings = popupView.findViewById(R.id.settings_profile);
+            mTextViewProfileSettings.setOnClickListener(item -> {
+                mNavController.navigate(R.id.profileSettingsFragment);
+                popupWindow.dismiss();
+            });
+
+            mTextViewApplicationSettings = popupView.findViewById(R.id.application_settings);
+            mTextViewApplicationSettings.setOnClickListener(item -> {
+                mNavController.navigate(R.id.settingsFragment);
+                popupWindow.dismiss();
+            });
+        }
+
+        popupWindow.showAtLocation(view, Gravity.RIGHT | Gravity.TOP, 0, 0);
+        View view1 = new View(getApplicationContext());
+        view1.setBackgroundResource(R.drawable.background_tint);
+        mDrawerLayout.addView(view1);
     }
 }

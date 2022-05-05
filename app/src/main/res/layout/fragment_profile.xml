@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".fragments.ProfileFragment">
+
+    <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_empty_avatar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginBottom="250dp"
+            android:id="@+id/imageView" />
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/userProfileTitleTextView"
+            android:textSize="30sp"
+            android:text="@string/userProfileTitleTextView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+    <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/registerDateTextView"
+            android:text="@string/registerDateTextView"
+            app:layout_constraintTop_toBottomOf="@+id/userProfileTitleTextView"
+            android:layout_marginTop="41dp"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="70dp" />
+
+    <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/registerDateValueTextView"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="70dp"
+            android:layout_marginTop="42dp"
+            app:layout_constraintTop_toBottomOf="@+id/userProfileTitleTextView" />
+
+    <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/userLoginTextView"
+            android:text="@string/userLoginTextView"
+            app:layout_constraintTop_toBottomOf="@+id/registerDateTextView"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="70dp"
+            android:layout_marginTop="15dp" />
+
+    <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/userLoginValueTextView"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="70dp"
+            app:layout_constraintTop_toBottomOf="@+id/registerDateValueTextView"
+            android:layout_marginTop="15dp" />
+
+    <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/userInboxTextView"
+            android:text="@string/userInboxTextView"
+            app:layout_constraintTop_toBottomOf="@+id/userLoginTextView"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="70dp"
+            android:layout_marginTop="15dp" />
+
+    <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/userInboxValueTextView"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="70dp"
+            app:layout_constraintTop_toBottomOf="@+id/userLoginValueTextView"
+            android:layout_marginTop="15dp" />
+
+    <Button
+            android:layout_width="120dp"
+            android:layout_height="40dp"
+            android:id="@+id/okButton"
+            android:text="@string/okButton"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/userInboxTextView"
+            android:layout_marginTop="49dp"
+            android:layout_marginStart="70dp" />
+
+    <Button
+            android:layout_width="120dp"
+            android:layout_height="40dp"
+            android:id="@+id/exitButton"
+            android:text="@string/exitButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/userInboxValueTextView"
+            android:layout_marginTop="49dp"
+            android:layout_marginEnd="70dp" />
+</androidx.constraintlayout.widget.ConstraintLayout>

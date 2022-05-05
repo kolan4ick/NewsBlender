@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <View
+                android:id="@+id/rectangle_bottom"
+                android:layout_width="198dp"
+                android:layout_height="185dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:background="@color/PopUpBottomColor"
+                android:layout_marginTop="0dp"
+                android:layout_marginStart="4dp" />
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="18dp"
+                android:layout_marginTop="25dp"
+                android:drawableLeft="@drawable/ic_user_profile"
+                android:drawablePadding="8dp"
+                android:id="@+id/user_profile"
+                android:text="@string/user_profile" />
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="18dp"
+                android:layout_marginTop="56dp"
+                android:drawableLeft="@drawable/ic_news_resources"
+                android:drawablePadding="8dp"
+                android:id="@+id/news_resources"
+                android:text="@string/news_resources" />
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="18dp"
+                android:layout_marginTop="86dp"
+                android:drawableLeft="@drawable/ic_saved"
+                android:drawablePadding="8dp"
+                android:id="@+id/saved"
+                android:text="@string/saved" />
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="18dp"
+                android:layout_marginTop="117dp"
+                android:drawableLeft="@drawable/ic_settings_profile"
+                android:drawablePadding="8dp"
+                android:id="@+id/settings_profile"
+                android:text="@string/settings_profile" />
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="18dp"
+                android:layout_marginTop="148dp"
+                android:drawableLeft="@drawable/ic_application_settings"
+                android:drawablePadding="8dp"
+                android:id="@+id/application_settings"
+                android:text="@string/application_settings" />
+</RelativeLayout>
