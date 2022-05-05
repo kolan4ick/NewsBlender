@@ -48,4 +48,6 @@
     <string name="news_count">Кількість новин для зберігання</string>
     <string name="share_news">Поділитись новиною</string>
     <string name="save">Зберегти</string>
+    <string name="fullname">Повне ім\'я</string>
+    <string name="inbox">Поштова скринька</string>
 </resources>

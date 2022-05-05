@@ -9,6 +9,7 @@
         <entry key="..\:/StudioProjects/NewsBlender/app/src/main/res/drawable/ic_avatar_incognito_24dp.xml" value="0.3005" />
         <entry key="..\:/StudioProjects/NewsBlender/app/src/main/res/drawable/ic_empty_avatar.xml" value="0.3005" />
         <entry key="..\:/StudioProjects/NewsBlender/app/src/main/res/drawable/ic_launcher_background.xml" value="0.152" />
+        <entry key="..\:/StudioProjects/NewsBlender/app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.188" />
         <entry key="..\:/StudioProjects/NewsBlender/app/src/main/res/drawable/ic_menu.xml" value="0.2995" />
         <entry key="..\:/StudioProjects/NewsBlender/app/src/main/res/drawable/ic_menu_24dp.xml" value="0.3005" />
         <entry key="..\:/StudioProjects/NewsBlender/app/src/main/res/drawable/ic_menu_slideshow.xml" value="0.3005" />
@@ -38,7 +39,7 @@
         <entry key="..\:/StudioProjects/NewsBlender/app/src/main/res/layout/fragment_authorization.xml" value="0.1796875" />
         <entry key="..\:/StudioProjects/NewsBlender/app/src/main/res/layout/fragment_news.xml" value="0.3567708333333333" />
         <entry key="..\:/StudioProjects/NewsBlender/app/src/main/res/layout/fragment_profile.xml" value="0.33" />
-        <entry key="..\:/StudioProjects/NewsBlender/app/src/main/res/layout/fragment_profile_settings.xml" value="0.34270833333333334" />
+        <entry key="..\:/StudioProjects/NewsBlender/app/src/main/res/layout/fragment_profile_settings.xml" value="0.33" />
         <entry key="..\:/StudioProjects/NewsBlender/app/src/main/res/layout/fragment_saved_news.xml" value="0.3567708333333333" />
         <entry key="..\:/StudioProjects/NewsBlender/app/src/main/res/layout/image_slider_layout_item.xml" value="0.3567708333333333" />
         <entry key="..\:/StudioProjects/NewsBlender/app/src/main/res/layout/nav_header_main.xml" value="0.3567708333333333" />
@@ -52,6 +53,8 @@
         <entry key="..\:/StudioProjects/NewsBlender/app/src/main/res/menu/navigation_view.xml" value="0.67" />
         <entry key="..\:/StudioProjects/NewsBlender/app/src/main/res/menu/top_app_bar.xml" value="0.33" />
         <entry key="..\:/StudioProjects/NewsBlender/app/src/main/res/menu/top_appbar.xml" value="0.1796875" />
+        <entry key="..\:/StudioProjects/NewsBlender/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.296" />
+        <entry key="..\:/StudioProjects/NewsBlender/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.3005" />
         <entry key="..\:/StudioProjects/NewsBlender/app/src/main/res/xml/root_preferences.xml" value="0.18" />
         <entry key="..\:/Users/Kolan/AndroidStudioProjects/NewsBlender/app/src/main/res/layout/activity_authorization.xml" value="0.33" />
         <entry key="..\:/Users/Kolan/AndroidStudioProjects/NewsBlender/app/src/main/res/layout/activity_login.xml" value="0.33" />

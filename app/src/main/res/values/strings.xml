@@ -4,7 +4,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="email">Email</string>
     <string name="sign_in">Sign in</string>
-    <string name="password">Password</string>
+    <string name="password">Пароль</string>
     <string name="register_hint">New here? Create Account</string>
     <string name="forgot_password">Forgot Password?</string>
     <string name="full_name">Full name</string>
@@ -73,4 +73,6 @@
     <string name="news_count">Кількість новин для зберігання</string>
     <string name="share_news">Поділитись новиною</string>
     <string name="save">Зберегти</string>
+    <string name="fullname">Повне ім\'я</string>
+    <string name="inbox">Поштова скринька</string>
 </resources>
