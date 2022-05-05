@@ -1,7 +1,10 @@
 package com.example.newsblender.fragments;
 
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -12,6 +15,8 @@ import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.PreferenceManager;
 
 import com.example.newsblender.R;
+
+import java.util.Locale;
 
 public class SettingsFragment extends PreferenceFragmentCompat {
 
@@ -37,4 +42,21 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             return true;
         }));
     }
+
+//    private void onClick() {
+//        changeLocale("en");
+//    }
+//
+//    private void changeLocale(String language) {
+//        Resources res = getResources();
+//        DisplayMetrics dm = res.getDisplayMetrics();
+//        Configuration conf = res.getConfiguration();
+//        if (language == "uk") {
+//            conf.setLocale(Locale.getDefault());
+//        }
+//        else {
+//            conf.setLocale(new Locale(language));
+//            res.updateConfiguration(conf, dm);
+//        }
+//    }
 }
