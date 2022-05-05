@@ -71,4 +71,6 @@
     <string name="font">Шрифт</string>
     <string name="language">Мова</string>
     <string name="news_count">Кількість новин для зберігання</string>
+    <string name="share_news">Поділитись новиною</string>
+    <string name="save">Зберегти</string>
 </resources>
