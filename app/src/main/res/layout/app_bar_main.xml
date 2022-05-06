@@ -14,8 +14,10 @@
 
     <androidx.appcompat.widget.Toolbar
             android:id="@+id/topAppBar"
+            android:background="@color/AppBarColor"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
+            app:logo="@drawable/ic_logo"
             app:navigationIcon="@drawable/ic_menu_24dp"
             style="@style/Widget.MaterialComponents.Toolbar.Primary">
         <androidx.cardview.widget.CardView

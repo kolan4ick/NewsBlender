@@ -14,6 +14,7 @@
     <color name="BackGroundNewsColor">#E1E1E1</color>
     <color name="PopUpHeaderColorFirst">#0191FD</color>
     <color name="PopUpHeaderColorSecond">#0069B8</color>
+    <color name="AppBarColor">#ffffff</color>
     <color name="PopUpBottomColor">#FFFFFF</color>
     <color name="PopUpHeaderColorFirstIncognito">#35363A</color>
     <color name="PopUpHeaderColorSecondIncognito">#35363A</color>

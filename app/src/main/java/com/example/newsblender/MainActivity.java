@@ -3,6 +3,7 @@ package com.example.newsblender;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -125,6 +126,7 @@ public class MainActivity extends AppCompatActivity {
         navigationInit();
         mToolbar.setNavigationIcon(R.drawable.ic_menu_24dp);
         mToolbar.setNavigationOnClickListener(view -> mDrawerLayout.open());
+        Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
 
         /* Initialize image view */
         popUpButtonImageView = findViewById(R.id.popUpButtonImageView);
@@ -134,7 +136,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-//        Toast.makeText(this, fStore.collection("/telegram_links").document().toString(), Toast.LENGTH_SHORT).show();
     }
 
     @SuppressLint("NonConstantResourceId")
