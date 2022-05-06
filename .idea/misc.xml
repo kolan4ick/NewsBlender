@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/StudioProjects/NewsBlender/app/src/main/res/drawable/background_tint.xml" value="0.3005" />
+        <entry key="..\:/StudioProjects/NewsBlender/app/src/main/res/drawable/circle.xml" value="0.3015" />
         <entry key="..\:/StudioProjects/NewsBlender/app/src/main/res/drawable/ic_application_settings.xml" value="0.3005" />
         <entry key="..\:/StudioProjects/NewsBlender/app/src/main/res/drawable/ic_avatar_incognito.xml" value="0.3005" />
         <entry key="..\:/StudioProjects/NewsBlender/app/src/main/res/drawable/ic_avatar_incognito_24dp.xml" value="0.3005" />
@@ -21,12 +22,13 @@
         <entry key="..\:/StudioProjects/NewsBlender/app/src/main/res/drawable/ic_user_menu_24dp.xml" value="0.188" />
         <entry key="..\:/StudioProjects/NewsBlender/app/src/main/res/drawable/ic_user_profile.xml" value="0.3005" />
         <entry key="..\:/StudioProjects/NewsBlender/app/src/main/res/drawable/ic_waves.xml" value="0.3005" />
+        <entry key="..\:/StudioProjects/NewsBlender/app/src/main/res/drawable/img.xml" value="0.3015" />
         <entry key="..\:/StudioProjects/NewsBlender/app/src/main/res/drawable/rectangle_gradient.xml" value="0.3005" />
         <entry key="..\:/StudioProjects/NewsBlender/app/src/main/res/drawable/rectangle_gradient_incognito.xml" value="0.3005" />
         <entry key="..\:/StudioProjects/NewsBlender/app/src/main/res/drawable/side_nav_bar.xml" value="0.3005" />
         <entry key="..\:/StudioProjects/NewsBlender/app/src/main/res/drawable/user_icon.xml" value="0.184" />
         <entry key="..\:/StudioProjects/NewsBlender/app/src/main/res/layout/actionbar_custom_view_home.xml" value="0.3567708333333333" />
-        <entry key="..\:/StudioProjects/NewsBlender/app/src/main/res/layout/activity_login.xml" value="0.33" />
+        <entry key="..\:/StudioProjects/NewsBlender/app/src/main/res/layout/activity_login.xml" value="0.22" />
         <entry key="..\:/StudioProjects/NewsBlender/app/src/main/res/layout/activity_main.xml" value="0.2696629213483146" />
         <entry key="..\:/StudioProjects/NewsBlender/app/src/main/res/layout/activity_main_content.xml" value="0.25" />
         <entry key="..\:/StudioProjects/NewsBlender/app/src/main/res/layout/activity_register.xml" value="0.3567708333333333" />

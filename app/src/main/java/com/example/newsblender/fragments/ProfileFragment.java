@@ -9,12 +9,15 @@ import androidx.lifecycle.ViewModelProvider;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.newsblender.LoginActivity;
 import com.example.newsblender.R;
 import com.example.newsblender.classes.ItemViewModel;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -37,6 +40,17 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View mView = inflater.inflate(R.layout.fragment_profile, container, false);
         mViewModel = new ViewModelProvider(requireActivity()).get(ItemViewModel.class);
+
+        // get the Firebase  storage reference and change image view if exists
+        StorageReference storageReference = FirebaseStorage.getInstance().getReference();
+        ImageView appBarImageView = getActivity().findViewById(R.id.popUpButtonImageView);
+        ImageView userAvatarImageView = mView.findViewById(R.id.userAvatarImageView);
+
+        /* Change image view if exists */
+        if (appBarImageView != null) {
+            userAvatarImageView.setImageDrawable(appBarImageView.getDrawable());
+        }
+
 
         FirebaseAuth fAuth = mViewModel.getFAuth();
 

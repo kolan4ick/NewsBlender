@@ -52,11 +52,11 @@ public class ProfileSettingsFragment extends Fragment {
     private final int PICK_IMAGE_REQUEST = 22;
 
     // instance for firebase storage and StorageReference
-    FirebaseStorage storage;
-    StorageReference storageReference;
-    FirebaseAuth fAuth;
-    View mView;
-
+    private FirebaseStorage storage;
+    private StorageReference storageReference;
+    private FirebaseAuth fAuth;
+    private View mView;
+    private ImageView appBarImageView;
 
     public static ProfileSettingsFragment newInstance() {
         ProfileSettingsFragment fragment = new ProfileSettingsFragment();
@@ -73,6 +73,18 @@ public class ProfileSettingsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         mView = inflater.inflate(R.layout.fragment_profile_settings, container, false);
+
+        // get the Firebase  storage reference and change image view if exists
+        storage = FirebaseStorage.getInstance();
+        storageReference = storage.getReference();
+        imageView = mView.findViewById(R.id.imageViewProfileSettings);
+        appBarImageView = getActivity().findViewById(R.id.popUpButtonImageView);
+        imageView.setOnClickListener(view -> SelectImage());
+
+        /* Change image view if exists */
+        if (appBarImageView.getDrawable() != null) {
+            imageView.setImageDrawable(appBarImageView.getDrawable());
+        }
 
         /* Initialize main variables */
         mViewModel = new ViewModelProvider(requireActivity()).get(ItemViewModel.class);
@@ -103,31 +115,11 @@ public class ProfileSettingsFragment extends Fragment {
             }
         });
 
-        // get the Firebase  storage reference
-        storage = FirebaseStorage.getInstance();
-        storageReference = storage.getReference();
-        imageView = mView.findViewById(R.id.imageViewProfileSettings);
-        StorageReference islandRef = storageReference.child("images/island.jpg");
 
-        final long ONE_MEGABYTE = 1024 * 1024;
-        islandRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
-            @Override
-            public void onSuccess(byte[] bytes) {
-                // Data for "images/island.jpg" is returns, use this as needed
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception exception) {
-                // Handle any errors
-            }
-        });
-        imageView.setOnClickListener(view -> SelectImage());
+//        storageReference.child("images/" + Objects.requireNonNull(fAuth.getCurrentUser()).getUid()).getDownloadUrl().addOnSuccessListener(uri -> {
+//            Glide.with(this).load(uri).into(imageView);
+//        });
 
-        storageReference.child("images/" + Objects.requireNonNull(fAuth.getCurrentUser()).getUid()).getDownloadUrl().addOnSuccessListener(uri -> {
-            Glide.with(this).load(uri).into(imageView);
-        }).addOnFailureListener(uri -> {
-            Toast.makeText(getContext(), "Image not fount, used default!", Toast.LENGTH_SHORT).show();
-        });
         return mView;
     }
 
@@ -169,9 +161,9 @@ public class ProfileSettingsFragment extends Fragment {
                 Bitmap bitmap = MediaStore
                         .Images
                         .Media
-                        .getBitmap(mView.getContext().getContentResolver(),
-                                filePath);
+                        .getBitmap(mView.getContext().getContentResolver(), filePath);
                 imageView.setImageBitmap(bitmap);
+                appBarImageView.setImageBitmap(bitmap);
             } catch (IOException e) {
                 // Log the exception
                 e.printStackTrace();
@@ -228,8 +220,7 @@ public class ProfileSettingsFragment extends Fragment {
                                         * taskSnapshot.getBytesTransferred()
                                         / taskSnapshot.getTotalByteCount());
                                 progressDialog.setMessage(
-                                        "Uploaded "
-                                                + (int) progress + "%");
+                                        "Uploaded " + (int) progress + "%");
                             });
         }
     }

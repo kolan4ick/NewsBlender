@@ -1,31 +1,23 @@
 package com.example.newsblender;
 
 import android.annotation.SuppressLint;
-import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.ViewStub;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
@@ -33,8 +25,8 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.bumptech.glide.Glide;
 import com.example.newsblender.classes.ItemViewModel;
-import com.example.newsblender.classes.TelegramNews;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -45,15 +37,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.select.Elements;
-
-import java.io.IOException;
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.util.ArrayList;
 import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
@@ -86,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
 
     /* Variables */
     private FirebaseAuth fAuth;
-    private FirebaseFirestore fStore;
+    private FirebaseStorage fStorage;
     private StorageReference mStorageReference;
     private GoogleSignInClient mSignInClient;
 
@@ -107,6 +90,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView mTextViewSaved;
     private TextView mTextViewProfileSettings;
     private TextView mTextViewApplicationSettings;
+    private ImageView popUpButtonImageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -117,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
 
         /* Setting main variables */
         fAuth = FirebaseAuth.getInstance();
-        fStore = FirebaseFirestore.getInstance();
+        fStorage = FirebaseStorage.getInstance();
         mStorageReference = FirebaseStorage.getInstance().getReference();
         mNavigationView = findViewById(R.id.nav_view);
         mDrawerLayout = findViewById(R.id.drawer_layout);
@@ -142,6 +126,14 @@ public class MainActivity extends AppCompatActivity {
         navigationInit();
         mToolbar.setNavigationIcon(R.drawable.ic_menu_24dp);
         mToolbar.setNavigationOnClickListener(view -> mDrawerLayout.open());
+
+        /* Initialize image view */
+        popUpButtonImageView = findViewById(R.id.popUpButtonImageView);
+        mStorageReference = fStorage.getReference();
+        mStorageReference.child("images/" + Objects.requireNonNull(fAuth.getCurrentUser()).getUid()).getDownloadUrl().addOnSuccessListener(uri -> {
+            Glide.with(this).load(uri).into(popUpButtonImageView);
+        });
+
 
 //        Toast.makeText(this, fStore.collection("/telegram_links").document().toString(), Toast.LENGTH_SHORT).show();
     }
@@ -225,8 +217,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(login_activity);
             });
         } else {
-            /*TODO change it to user avatar*/
-            imageView.setImageDrawable(getDrawable(R.drawable.ic_user_menu_24dp));
+            imageView.setImageDrawable(popUpButtonImageView.getDrawable());
             userName.setText(fUser.getDisplayName());
             viewStub.setLayoutResource(R.layout.pop_up_params);
 
