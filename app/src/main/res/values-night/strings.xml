@@ -50,4 +50,5 @@
     <string name="save">Зберегти</string>
     <string name="fullname">Повне ім\'я</string>
     <string name="inbox">Поштова скринька</string>
+    <string name="cancel">Скасувати</string>
 </resources>

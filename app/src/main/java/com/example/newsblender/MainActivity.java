@@ -232,6 +232,29 @@ public class MainActivity extends AppCompatActivity {
             });
 
             mTextViewNewsResources = popupView.findViewById(R.id.news_resources);
+            mTextViewNewsResources.setOnClickListener(item -> {
+                popupWindow.dismiss();
+                // inflate the layout of the popup window
+                LayoutInflater inflaterChild = (LayoutInflater)
+                        getSystemService(LAYOUT_INFLATER_SERVICE);
+                View popupViewChild = inflaterChild.inflate(R.layout.pop_up_news_resources, null);
+
+                // create the popup window
+                int widthChild = LinearLayout.LayoutParams.WRAP_CONTENT;
+                int heightChild = LinearLayout.LayoutParams.WRAP_CONTENT;
+                final PopupWindow popupWindowChild = new PopupWindow(popupViewChild, width, height, true);
+
+                /* If last view element is tint view - delete it */
+                popupWindowChild.setOnDismissListener(() -> {
+                    if (mDrawerLayout.getChildAt(mDrawerLayout.getChildCount() - 1).getClass().equals(View.class))
+                        mDrawerLayout.removeViewAt(mDrawerLayout.getChildCount() - 1);
+                });
+                popupWindowChild.showAtLocation(item, Gravity.TOP | Gravity.CENTER, 0, 135);
+                View view1 = new View(getApplicationContext());
+                view1.setBackgroundResource(R.drawable.background_tint);
+                mDrawerLayout.addView(view1);
+
+            });
 
             mTextViewSaved = popupView.findViewById(R.id.saved);
             mTextViewSaved.setOnClickListener(item -> {

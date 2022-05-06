@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+    <!-- Профіль -->
+    <View
+            android:id="@+id/some_id"
+            android:layout_width="250dp"
+            android:layout_height="620dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:background="@color/PopUpBottomColor"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/popUpNewsResourcesTitle"
+            android:text="@string/news_resources"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="19dp"
+            android:layout_marginTop="10dp" />
+
+    <ScrollView
+            android:layout_width="250dp"
+            android:layout_height="540dp"
+            android:paddingStart="19dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="0.19"
+            android:id="@+id/scrollView2"
+            app:layout_constraintVertical_bias="0.0"
+            app:layout_constraintTop_toBottomOf="@+id/popUpNewsResourcesTitle">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/popUpNewsResourcesAddTextView"
+                    android:text="@string/add"
+                    android:drawableLeft="@drawable/ic_plus"
+                    android:drawablePadding="10dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginTop="10dp" />
+
+            <androidx.appcompat.widget.AppCompatCheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/chkbx_vinnutsia"
+                    android:text="@string/vinnutsia"
+                    android:paddingStart="8dp"
+                    android:button="@drawable/checkbox"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/popUpNewsResourcesAddTextView" />
+
+            <androidx.appcompat.widget.AppCompatCheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/chkbx_volyn"
+                    android:paddingStart="8dp"
+                    android:button="@drawable/checkbox"
+                    android:text="@string/volyn"
+                    app:layout_constraintTop_toBottomOf="@id/chkbx_vinnutsia"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatCheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="8dp"
+                    android:button="@drawable/checkbox"
+                    android:id="@+id/chkbx_dnipropetrovsk"
+                    android:text="@string/dnipropetrovsk"
+                    app:layout_constraintTop_toBottomOf="@id/chkbx_volyn"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatCheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="8dp"
+                    android:button="@drawable/checkbox"
+                    android:id="@+id/chkbx_transcarpathian"
+                    android:text="@string/transcarpathian"
+                    app:layout_constraintTop_toBottomOf="@id/chkbx_dnipropetrovsk"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatCheckBox
+                    android:layout_width="wrap_content"
+                    android:paddingStart="8dp"
+                    android:button="@drawable/checkbox"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/chkbx_zaporizhzhia"
+                    android:text="@string/zaporizhzhia"
+                    app:layout_constraintTop_toBottomOf="@id/chkbx_transcarpathian"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatCheckBox
+                    android:layout_width="wrap_content"
+                    android:paddingStart="8dp"
+                    android:button="@drawable/checkbox"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/chkbx_ivano_frankivsk"
+                    android:text="@string/ivano_frankivsk"
+                    app:layout_constraintTop_toBottomOf="@id/chkbx_zaporizhzhia"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatCheckBox
+                    android:layout_width="wrap_content"
+                    android:paddingStart="8dp"
+                    android:button="@drawable/checkbox"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/chkbx_kyiv"
+                    android:text="@string/kyiv"
+                    app:layout_constraintTop_toBottomOf="@id/chkbx_ivano_frankivsk"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatCheckBox
+                    android:layout_width="wrap_content"
+                    android:paddingStart="8dp"
+                    android:button="@drawable/checkbox"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/chkbx_kirovohrad"
+                    android:text="@string/kirovohrad"
+                    app:layout_constraintTop_toBottomOf="@id/chkbx_kyiv"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatCheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="8dp"
+                    android:button="@drawable/checkbox"
+                    android:id="@+id/chkbx_lviv"
+                    android:text="@string/lviv"
+                    app:layout_constraintTop_toBottomOf="@id/chkbx_kirovohrad"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatCheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="8dp"
+                    android:button="@drawable/checkbox"
+                    android:id="@+id/chkbx_mykolayiv"
+                    android:text="@string/mykolayiv"
+                    app:layout_constraintTop_toBottomOf="@id/chkbx_lviv"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatCheckBox
+                    android:layout_width="wrap_content"
+                    android:paddingStart="8dp"
+                    android:button="@drawable/checkbox"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/chkbx_odesa"
+                    android:text="@string/odesa"
+                    app:layout_constraintTop_toBottomOf="@id/chkbx_mykolayiv"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatCheckBox
+                    android:layout_width="wrap_content"
+                    android:paddingStart="8dp"
+                    android:button="@drawable/checkbox"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/chkbx_rivne"
+                    android:text="@string/rivne"
+                    app:layout_constraintTop_toBottomOf="@id/chkbx_odesa"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatCheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="8dp"
+                    android:button="@drawable/checkbox"
+                    android:id="@+id/chkbx_ternopil"
+                    android:text="@string/ternopil"
+                    app:layout_constraintTop_toBottomOf="@id/chkbx_rivne"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatCheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/chkbx_kharkiv"
+                    android:paddingStart="8dp"
+                    android:button="@drawable/checkbox"
+                    android:text="@string/kharkiv"
+                    app:layout_constraintTop_toBottomOf="@id/chkbx_ternopil"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatCheckBox
+                    android:layout_width="wrap_content"
+                    android:paddingStart="8dp"
+                    android:button="@drawable/checkbox"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/chkbx_kherson"
+                    android:text="@string/kherson"
+                    app:layout_constraintTop_toBottomOf="@id/chkbx_kharkiv"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatCheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="8dp"
+                    android:button="@drawable/checkbox"
+                    android:id="@+id/chkbx_khmelnytsky"
+                    android:text="@string/khmelnytsky"
+                    app:layout_constraintTop_toBottomOf="@id/chkbx_kherson"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatCheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="8dp"
+                    android:button="@drawable/checkbox"
+                    android:id="@+id/chkbx_cherkasy"
+                    android:text="@string/cherkasy"
+                    app:layout_constraintTop_toBottomOf="@id/chkbx_khmelnytsky"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatCheckBox
+                    android:paddingStart="8dp"
+                    android:button="@drawable/checkbox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/chkbx_chernihiv"
+                    android:text="@string/chernihiv"
+                    app:layout_constraintTop_toBottomOf="@id/chkbx_cherkasy"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatCheckBox
+                    android:layout_width="wrap_content"
+                    android:paddingStart="8dp"
+                    android:button="@drawable/checkbox"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/chkbx_chernivtsi"
+                    android:text="@string/chernivtsi"
+                    app:layout_constraintTop_toBottomOf="@id/chkbx_chernihiv"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatCheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="8dp"
+                    android:button="@drawable/checkbox"
+                    android:id="@+id/chkbx_zhytomyr"
+                    android:text="@string/zhytomyr"
+                    app:layout_constraintTop_toBottomOf="@id/chkbx_chernivtsi"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatCheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="8dp"
+                    android:button="@drawable/checkbox"
+                    android:id="@+id/chkbx_poltava"
+                    android:text="@string/poltava"
+                    app:layout_constraintTop_toBottomOf="@id/chkbx_zhytomyr"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatCheckBox
+                    android:paddingStart="8dp"
+                    android:button="@drawable/checkbox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/chkbx_luhansk"
+                    android:text="@string/luhansk"
+                    app:layout_constraintTop_toBottomOf="@id/chkbx_poltava"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatCheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="8dp"
+                    android:button="@drawable/checkbox"
+                    android:id="@+id/chkbx_donetsk"
+                    android:text="@string/donetsk"
+                    app:layout_constraintTop_toBottomOf="@id/chkbx_luhansk"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatCheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/chkbx_sumy"
+                    android:text="@string/sumy"
+                    android:paddingStart="8dp"
+                    android:button="@drawable/checkbox"
+                    app:layout_constraintTop_toBottomOf="@id/chkbx_donetsk"
+                    app:layout_constraintStart_toStartOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+    <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/cancel"
+            app:layout_constraintEnd_toStartOf="@+id/okButton"
+            android:id="@+id/cancelButton"
+            android:layout_marginEnd="10dp"
+            app:layout_constraintBottom_toBottomOf="@+id/some_id" />
+
+    <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/okButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:id="@+id/okButton"
+            app:layout_constraintBottom_toBottomOf="@+id/some_id" />
+</androidx.constraintlayout.widget.ConstraintLayout>
