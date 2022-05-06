@@ -35,6 +35,7 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.model.Document;
+import com.google.type.DateTime;
 import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType;
 import com.smarteist.autoimageslider.SliderAnimations;
 import com.smarteist.autoimageslider.SliderView;
@@ -158,6 +159,7 @@ public class TelegramNews {
                 saved_news.put("owner_name", getOwnerName());
                 saved_news.put("photo_links", getPhotoLinks());
                 saved_news.put("Uid", Objects.requireNonNull(fAuth.getCurrentUser()).getUid());
+                saved_news.put("date_added", Timestamp.now());
                 savedNews.document().set(saved_news).addOnCompleteListener(runnable -> {
                     Toast.makeText(context, "Success added news", Toast.LENGTH_SHORT).show();
                     popupWindow.dismiss();
