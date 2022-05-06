@@ -27,12 +27,28 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.example.newsblender.MainActivity;
 import com.example.newsblender.R;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.Timestamp;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.model.Document;
 import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType;
 import com.smarteist.autoimageslider.SliderAnimations;
 import com.smarteist.autoimageslider.SliderView;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 public class TelegramNews {
     public TelegramNews(String ownerName, LocalDateTime date, String linkToNews, String body, ArrayList<String> photoLinks) {
@@ -131,7 +147,21 @@ public class TelegramNews {
             });
 
             popupView.findViewById(R.id.saveTextView).setOnClickListener(item -> {
-                /* TODO: create saving news */
+                FirebaseFirestore db = FirebaseFirestore.getInstance();
+                CollectionReference savedNews = db.collection("saved_news");
+                FirebaseAuth fAuth = FirebaseAuth.getInstance();
+
+                Map<String, Object> saved_news = new HashMap<>();
+                saved_news.put("body", getBody());
+                saved_news.put("date", new Timestamp(Date.from(getDate().toInstant(ZoneOffset.UTC))));
+                saved_news.put("link_to_news", getLinkToNews());
+                saved_news.put("owner_name", getOwnerName());
+                saved_news.put("photo_links", getPhotoLinks());
+                saved_news.put("Uid", Objects.requireNonNull(fAuth.getCurrentUser()).getUid());
+                savedNews.document().set(saved_news).addOnCompleteListener(runnable -> {
+                    Toast.makeText(context, "Success added news", Toast.LENGTH_SHORT).show();
+                    popupWindow.dismiss();
+                });
             });
 
             View view1 = new View(context);

@@ -118,7 +118,6 @@ public class MainActivity extends AppCompatActivity {
         mSignInClient = GoogleSignIn.getClient(this, gso);
 
         firebaseUserInit();
-
         setSupportActionBar(mToolbar);
         mAppBarConfiguration = new AppBarConfiguration.Builder(R.id.nav_news).setOpenableLayout(mDrawerLayout).build();
         NavigationUI.setupActionBarWithNavController(this, mNavController, mAppBarConfiguration);
