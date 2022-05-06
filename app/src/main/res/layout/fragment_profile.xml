@@ -6,16 +6,29 @@
         android:layout_height="match_parent"
         tools:context=".fragments.ProfileFragment">
 
-    <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_empty_avatar"
+    <androidx.cardview.widget.CardView
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:elevation="12dp"
+            android:id="@+id/cardViewProfileAvatar"
+            app:cardCornerRadius="150dp"
+            android:layout_centerHorizontal="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginBottom="250dp"
-            android:id="@+id/userAvatarImageView" />
+            android:layout_marginTop="150dp">
+
+        <ImageView
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:src="@drawable/ic_empty_avatar"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginBottom="250dp"
+                android:id="@+id/userAvatarImageView" />
+    </androidx.cardview.widget.CardView>
 
     <TextView
             android:layout_width="wrap_content"
@@ -25,7 +38,7 @@
             android:text="@string/userProfileTitleTextView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/userAvatarImageView" />
+            app:layout_constraintTop_toBottomOf="@+id/cardViewProfileAvatar" />
 
     <TextView
             android:layout_width="0dp"
