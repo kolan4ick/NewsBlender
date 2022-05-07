@@ -78,4 +78,6 @@
     <string name="cancel">Скасувати</string>
     <string name="add">Додати</string>
     <string name="add_your_news_resource">Додай свій новинний ресур прямо зараз</string>
+    <string name="add_telegram_link">Посилання на телеграм канал</string>
+    <string name="success">Успіх!</string>
 </resources>

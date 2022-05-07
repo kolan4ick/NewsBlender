@@ -1,24 +1,35 @@
 package com.example.newsblender;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewStub;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.ProgressBar;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
+import androidx.appcompat.widget.AppCompatCheckBox;
 import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
@@ -27,17 +38,33 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.bumptech.glide.Glide;
+import com.example.newsblender.classes.AddTelegramChannel;
 import com.example.newsblender.classes.ItemViewModel;
+import com.example.newsblender.classes.TelegramNews;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
@@ -67,6 +94,17 @@ public class MainActivity extends AppCompatActivity {
     private static final int LUHANSK = R.id.nav_luhansk;
     private static final int DONETSK = R.id.nav_donetsk;
     private static final int SUMY = R.id.nav_sumy;
+
+    private static final String[] telegram_news = {"https://allnews", "https://t.me/vinnytskaODA", "https://t.me/volynskaODA", "https://t.me/dnipropetrovskaODA",
+            "https://t.me/zakarpatskaODA", "https://t.me/starukhofficial", "https://t.me/onyshchuksvitlana",
+            "https://t.me/kyivoda", "https://t.me/chornamary", "https://t.me/kozytskyy_maksym_official",
+            "https://t.me/mykolaivskaODA", "https://t.me/odeskaODA", "https://t.me/vitalykoval8",
+            "https://t.me/ternopilskaODA", "https://t.me/synegubov", "https://t.me/khersonskaODA",
+            "https://t.me/khmelnytskaODA", "https://t.me/cherkaskaODA", "https://t.me/chernigivskaODA",
+            "https://t.me/chernivetskaODA", "https://t.me/zhytomyrskaODA", "https://t.me/DMYTROLUNIN",
+            "https://t.me/luhanskaVTSA", "https://t.me/pavlokyrylenko_donoda", "https://t.me/Zhyvytskyy"
+    };
+
 
     /* Variables */
     private FirebaseAuth fAuth;
@@ -243,6 +281,33 @@ public class MainActivity extends AppCompatActivity {
                 // inflate the layout of the popup window
                 LayoutInflater inflaterChild = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
                 View popupViewChild = inflaterChild.inflate(R.layout.pop_up_news_resources, null);
+                /* Access to database and resources */
+                FirebaseFirestore db = FirebaseFirestore.getInstance();
+                CollectionReference newsResources = FirebaseFirestore.getInstance().collection("news_resources");
+
+                ConstraintLayout constraintLayout = popupViewChild.findViewById(R.id.scrollView2).findViewById(R.id.popUpNewsResourcesConstraintLayout);
+                newsResources.whereEqualTo("Uid", fAuth.getCurrentUser().getUid()).get().addOnCompleteListener(task -> {
+                    for (QueryDocumentSnapshot document :
+                            task.getResult()) {
+                        AppCompatCheckBox chkBx = findCheckBoxInLayoutByText(constraintLayout, document.getString("channel_name"));
+                        if (chkBx != null) {
+                            chkBx.setChecked(document.getBoolean("selected"));
+                        } else {
+                            AppCompatCheckBox appCompatCheckBox = new AppCompatCheckBox(this);
+                            appCompatCheckBox.setButtonDrawable(R.drawable.checkbox);
+                            appCompatCheckBox.setText(document.getString("channel_name"));
+                            appCompatCheckBox.setChecked(document.getBoolean("selected"));
+                            appCompatCheckBox.setId(View.generateViewId());
+                            appCompatCheckBox.setPadding(12, 0, 0, 0);
+                            constraintLayout.addView(appCompatCheckBox);
+                            ConstraintSet constraintSet = new ConstraintSet();
+                            constraintSet.clone(constraintLayout);
+                            constraintSet.connect(appCompatCheckBox.getId(), ConstraintSet.TOP, constraintLayout.getChildAt(constraintLayout.getChildCount() - 2).getId(), ConstraintSet.BOTTOM);
+                            constraintSet.connect(appCompatCheckBox.getId(), ConstraintSet.START, constraintLayout.getId(), ConstraintSet.START);
+                            constraintSet.applyTo(constraintLayout);
+                        }
+                    }
+                });
 
                 // create the popup window
                 final PopupWindow popupWindowChild = new PopupWindow(popupViewChild, width, height, true);
@@ -262,6 +327,24 @@ public class MainActivity extends AppCompatActivity {
                     /* Open the popup */
                     popupWindowAddResources.showAtLocation(textView, Gravity.CENTER, 0, 0);
 
+                    /* Set actions to buttons */
+                    ImageButton closeBtn = popupViewAddResources.findViewById(R.id.popUpAddNewsResourceCloseButton);
+                    closeBtn.setOnClickListener(closeBtnView -> popupWindowAddResources.dismiss());
+
+                    AppCompatButton addBtn = popupViewAddResources.findViewById(R.id.popUpAddNewsResourceAddButton);
+                    addBtn.setOnClickListener(addBtnView -> {
+                        EditText editText = popupViewAddResources.findViewById(R.id.popUpAddNewsResourceEditText);
+                        String channelLink = editText.getText().toString();
+                        if (channelLink.length() > 15)
+                            try {
+                                new AddTelegramChannel(channelLink, fAuth, popupWindowAddResources, popupWindowChild).execute();
+                            } catch (Exception e) {
+                                Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        else
+                            Toast.makeText(this, "Must be at least 16 symbols!\nTry again!", Toast.LENGTH_SHORT).show();
+                    });
+
                     /* Add tint on background */
                     View view1 = new View(getApplicationContext());
                     view1.setBackgroundResource(R.drawable.background_tint);
@@ -277,6 +360,44 @@ public class MainActivity extends AppCompatActivity {
                 /* Open the popup */
                 popupWindowChild.showAtLocation(item, Gravity.TOP | Gravity.CENTER, 0, 135);
 
+
+                TextView cancelTextView = popupViewChild.findViewById(R.id.cancelButton);
+                cancelTextView.setOnClickListener(item1 -> popupWindowChild.dismiss());
+
+                TextView okTextView = popupViewChild.findViewById(R.id.okButton);
+                okTextView.setOnClickListener(item1 -> {
+                    try {
+                        for (int i = 0; i < constraintLayout.getChildCount(); ++i) {
+                            if (constraintLayout.getChildAt(i) instanceof AppCompatCheckBox) {
+                                AppCompatCheckBox appCompatCheckBox = (AppCompatCheckBox) constraintLayout.getChildAt(i);
+
+                                boolean flag = (i < telegram_news.length);
+                                int finalI = i;
+                                newsResources.whereEqualTo("Uid", fUser.getUid())
+                                        .whereEqualTo("channel_name", appCompatCheckBox.getText()).get().addOnCompleteListener(task -> {
+                                    if (task.isSuccessful()) {
+                                        if (task.getResult().size() == 0 && flag) {
+                                            Map<String, Object> newsResource = new HashMap<>();
+                                            newsResource.put("channel_name", appCompatCheckBox.getText());
+                                            newsResource.put("selected", appCompatCheckBox.isChecked());
+                                            newsResource.put("channel_link", telegram_news[finalI]);
+                                            newsResource.put("Uid", Objects.requireNonNull(fAuth.getCurrentUser()).getUid());
+                                            newsResource.put("date_added", Timestamp.now());
+                                            db.collection("news_resources").document().set(newsResource);
+                                        } else
+                                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                                DocumentReference documentReference = document.getReference();
+                                                documentReference.update("selected", appCompatCheckBox.isChecked());
+                                            }
+                                    }
+                                });
+                            }
+                        }
+                        popupWindowChild.dismiss();
+                    } catch (Exception e) {
+                        Toast.makeText(this, "ERROR!", Toast.LENGTH_SHORT).show();
+                    }
+                });
 
                 /* Add tint on background */
                 View view1 = new View(getApplicationContext());
@@ -305,9 +426,20 @@ public class MainActivity extends AppCompatActivity {
             });
         }
 
-        popupWindow.showAtLocation(view, Gravity.RIGHT | Gravity.TOP, 0, 0);
+        popupWindow.showAtLocation(view, Gravity.END | Gravity.TOP, 0, 0);
         View view1 = new View(getApplicationContext());
         view1.setBackgroundResource(R.drawable.background_tint);
         mDrawerLayout.addView(view1);
+    }
+
+    /* Method for searching checkbox in constraint layout by text */
+    protected AppCompatCheckBox findCheckBoxInLayoutByText(ConstraintLayout constraintLayout, String text) {
+        for (int i = 0; i < constraintLayout.getChildCount(); ++i) {
+            if (constraintLayout.getChildAt(i) instanceof AppCompatCheckBox) {
+                if (((AppCompatCheckBox) constraintLayout.getChildAt(i)).getText().equals(text))
+                    return (AppCompatCheckBox) constraintLayout.getChildAt(i);
+            }
+        }
+        return null;
     }
 }

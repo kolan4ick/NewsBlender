@@ -107,7 +107,7 @@
         android:layout_width="226dp"
         android:layout_height="36dp"
         android:layout_marginTop="16dp"
-        android:background="@drawable/sign_in_button_background"
+        android:background="@drawable/blue_button_background"
         android:fontFamily="@font/inter_bold"
         android:insetTop="0dp"
         android:insetBottom="0dp"
