@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="email">Email</string>
-    <string name="sign_in">Sign in</string>
-    <string name="password">Password</string>
-    <string name="register_hint">New here? Create Account</string>
-    <string name="forgot_password">Forgot Password?</string>
+    <string name="email">Пошта</string>
+    <string name="sign_in">Вхід</string>
+    <string name="password">Пароль</string>
+    <string name="register_hint">Створити акаунт</string>
+    <string name="forgot_password">Забули пароль?</string>
     <string name="vinnutsia">Вінницька</string>
     <string name="volyn">Волинська</string>
     <string name="dnipropetrovsk">Дніпропетровська</string>
