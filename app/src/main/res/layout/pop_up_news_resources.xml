@@ -7,7 +7,7 @@
 
     <!-- Профіль -->
     <View
-            android:id="@+id/some_id"
+            android:id="@+id/popUpNewsResourcesHeader"
             android:layout_width="250dp"
             android:layout_height="620dp"
             android:layout_alignParentStart="true"
@@ -297,20 +297,25 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
-    <Button
+    <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/cancel"
             app:layout_constraintEnd_toStartOf="@+id/okButton"
             android:id="@+id/cancelButton"
-            android:layout_marginEnd="10dp"
-            app:layout_constraintBottom_toBottomOf="@+id/some_id" />
+            android:layout_marginEnd="20dp"
+            android:textColor="#0191FD"
+            app:layout_constraintBottom_toBottomOf="@+id/popUpNewsResourcesHeader"
+            app:layout_constraintTop_toBottomOf="@+id/scrollView2" />
 
-    <Button
+    <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/okButton"
             app:layout_constraintEnd_toEndOf="parent"
             android:id="@+id/okButton"
-            app:layout_constraintBottom_toBottomOf="@+id/some_id" />
+            android:textColor="#0191FD"
+            app:layout_constraintBottom_toBottomOf="@+id/popUpNewsResourcesHeader"
+            app:layout_constraintTop_toBottomOf="@+id/scrollView2"
+            android:layout_marginEnd="20dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

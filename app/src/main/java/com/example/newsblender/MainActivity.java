@@ -198,6 +198,7 @@ public class MainActivity extends AppCompatActivity {
         TextView userName = popupView.findViewById(R.id.userMenuUsername);
         ImageView imageView = popupView.findViewById(R.id.userMenuImageView);
         ViewStub viewStub = popupView.findViewById(R.id.view_stub_pop_up_window);
+
         /* Generating popup content relatively to user anonymity*/
         if (Objects.requireNonNull(fUser).isAnonymous()) {
             viewStub.setLayoutResource(R.layout.pop_up_params_anonym);
@@ -232,30 +233,59 @@ public class MainActivity extends AppCompatActivity {
             });
 
             mTextViewNewsResources = popupView.findViewById(R.id.news_resources);
+
+            /* Generating popup for news resources */
             mTextViewNewsResources.setOnClickListener(item -> {
+
+                /* Dismiss parent popup */
                 popupWindow.dismiss();
+
                 // inflate the layout of the popup window
-                LayoutInflater inflaterChild = (LayoutInflater)
-                        getSystemService(LAYOUT_INFLATER_SERVICE);
+                LayoutInflater inflaterChild = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
                 View popupViewChild = inflaterChild.inflate(R.layout.pop_up_news_resources, null);
 
                 // create the popup window
-                int widthChild = LinearLayout.LayoutParams.WRAP_CONTENT;
-                int heightChild = LinearLayout.LayoutParams.WRAP_CONTENT;
                 final PopupWindow popupWindowChild = new PopupWindow(popupViewChild, width, height, true);
+                /* Generate popup by click on textView */
+                TextView popUpNewsResourcesAddTextView = popupViewChild.findViewById(R.id.popUpNewsResourcesAddTextView);
+                popUpNewsResourcesAddTextView.setOnClickListener(textView -> {
+                    popupWindowChild.dismiss();
+                    LayoutInflater inflaterAddResources = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
+                    View popupViewAddResources = inflaterAddResources.inflate(R.layout.pop_up_add_news_resource, null);
+
+                    // create the popup window
+                    final PopupWindow popupWindowAddResources = new PopupWindow(popupViewAddResources, width, height, true);
+
+                    /* Open parent popup when dismiss current */
+                    popupWindowAddResources.setOnDismissListener(() -> popupWindowChild.showAtLocation(item, Gravity.TOP | Gravity.CENTER, 0, 135));
+
+                    /* Open the popup */
+                    popupWindowAddResources.showAtLocation(textView, Gravity.CENTER, 0, 0);
+
+                    /* Add tint on background */
+                    View view1 = new View(getApplicationContext());
+                    view1.setBackgroundResource(R.drawable.background_tint);
+                    mDrawerLayout.addView(view1);
+                });
 
                 /* If last view element is tint view - delete it */
                 popupWindowChild.setOnDismissListener(() -> {
                     if (mDrawerLayout.getChildAt(mDrawerLayout.getChildCount() - 1).getClass().equals(View.class))
                         mDrawerLayout.removeViewAt(mDrawerLayout.getChildCount() - 1);
                 });
+
+                /* Open the popup */
                 popupWindowChild.showAtLocation(item, Gravity.TOP | Gravity.CENTER, 0, 135);
+
+
+                /* Add tint on background */
                 View view1 = new View(getApplicationContext());
                 view1.setBackgroundResource(R.drawable.background_tint);
                 mDrawerLayout.addView(view1);
 
             });
 
+            /* Set actions to another buttons */
             mTextViewSaved = popupView.findViewById(R.id.saved);
             mTextViewSaved.setOnClickListener(item -> {
                 mNavController.navigate(R.id.savedNewsFragment);
