@@ -21,6 +21,9 @@ import com.example.newsblender.classes.ItemViewModel;
 import com.example.newsblender.classes.TelegramNews;
 import com.example.newsblender.classes.TelegramNewsContent;
 import com.example.newsblender.classes.Util;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -59,39 +62,42 @@ public class NewsFragment extends Fragment {
     private static final int DONETSK = R.id.nav_donetsk;
     private static final int SUMY = R.id.nav_sumy;
     private static final HashMap<Integer, String> telegram_news = new HashMap<Integer, String>() {
-    {
-        put(ALL_NEWS, "https://allnews");
-        put(VINNUTSIA, "https://t.me/vinnytskaODA");
-        put(VOLYN, "https://t.me/volynskaODA");
-        put(DNIPROPETROVSK, "https://t.me/dnipropetrovskaODA");
-        put(TRANSCARPATHIAN, "https://t.me/zakarpatskaODA");
-        put(ZAPORIZHZHIA, "https://t.me/starukhofficial");
-        put(IVANO_FRANKIVSK, "https://t.me/onyshchuksvitlana");
-        put(KYIV, "https://t.me/kyivoda");
-        put(KIROVOHRAD, "https://t.me/chornamary");
-        put(LVIV, "https://t.me/kozytskyy_maksym_official");
-        put(MYKOLAYIV, "https://t.me/mykolaivskaODA");
-        put(ODESA, "https://t.me/odeskaODA");
-        put(RIVNE, "https://t.me/vitalykoval8");
-        put(TERNOPIL, "https://t.me/ternopilskaODA");
-        put(KHARKIV, "https://t.me/synegubov");
-        put(KHERSON, "https://t.me/khersonskaODA");
-        put(KHMELNYTSKY, "https://t.me/khmelnytskaODA");
-        put(CHERKASY, "https://t.me/cherkaskaODA");
-        put(CHERNIHIV, "https://t.me/chernigivskaODA");
-        put(CHERNIVTSI, "https://t.me/chernivetskaODA");
-        put(ZHYTOMYR, "https://t.me/zhytomyrskaODA");
-        put(POLTAVA, "https://t.me/DMYTROLUNIN");
-        put(LUHANSK, "https://t.me/luhanskaVTSA");
-        put(DONETSK, "https://t.me/pavlokyrylenko_donoda");
-        put(SUMY, "https://t.me/Zhyvytskyy");
-    }};
+        {
+            put(ALL_NEWS, "https://allnews");
+            put(VINNUTSIA, "https://t.me/vinnytskaODA");
+            put(VOLYN, "https://t.me/volynskaODA");
+            put(DNIPROPETROVSK, "https://t.me/dnipropetrovskaODA");
+            put(TRANSCARPATHIAN, "https://t.me/zakarpatskaODA");
+            put(ZAPORIZHZHIA, "https://t.me/starukhofficial");
+            put(IVANO_FRANKIVSK, "https://t.me/onyshchuksvitlana");
+            put(KYIV, "https://t.me/kyivoda");
+            put(KIROVOHRAD, "https://t.me/chornamary");
+            put(LVIV, "https://t.me/kozytskyy_maksym_official");
+            put(MYKOLAYIV, "https://t.me/mykolaivskaODA");
+            put(ODESA, "https://t.me/odeskaODA");
+            put(RIVNE, "https://t.me/vitalykoval8");
+            put(TERNOPIL, "https://t.me/ternopilskaODA");
+            put(KHARKIV, "https://t.me/synegubov");
+            put(KHERSON, "https://t.me/khersonskaODA");
+            put(KHMELNYTSKY, "https://t.me/khmelnytskaODA");
+            put(CHERKASY, "https://t.me/cherkaskaODA");
+            put(CHERNIHIV, "https://t.me/chernigivskaODA");
+            put(CHERNIVTSI, "https://t.me/chernivetskaODA");
+            put(ZHYTOMYR, "https://t.me/zhytomyrskaODA");
+            put(POLTAVA, "https://t.me/DMYTROLUNIN");
+            put(LUHANSK, "https://t.me/luhanskaVTSA");
+            put(DONETSK, "https://t.me/pavlokyrylenko_donoda");
+            put(SUMY, "https://t.me/Zhyvytskyy");
+        }
+    };
 
     /* Variables */
     private ItemViewModel mViewModel;
     private ArrayList<TelegramNews> mTelegramNews;
     private ProgressBar mProgressBarNewsFragment;
     private ScrollView mScrollView;
+    private FirebaseFirestore fDb;
+    private FirebaseAuth fAuth;
 
     public static NewsFragment newInstance() {
         return new NewsFragment();
@@ -107,6 +113,8 @@ public class NewsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View mView = inflater.inflate(R.layout.fragment_news, container, false);
+        fDb = FirebaseFirestore.getInstance();
+        fAuth = FirebaseAuth.getInstance();
         if (Util.isNetworkAvailable((ConnectivityManager) requireActivity().getSystemService(Context.CONNECTIVITY_SERVICE))) {
             mViewModel = new ViewModelProvider(requireActivity()).get(ItemViewModel.class);
             mProgressBarNewsFragment = mView.findViewById(R.id.progressBarNewsFragment);
@@ -125,9 +133,13 @@ public class NewsFragment extends Fragment {
 
     public void assignNews() {
         if (mViewModel.getNewsNavigationTypeValue() == ALL_NEWS) {
-            Toast.makeText(getContext(), "ALL", Toast.LENGTH_SHORT).show();
+            fDb.collection("news_resources").whereEqualTo("Uid", fAuth.getUid()).get().addOnCompleteListener(task -> {
+                for (QueryDocumentSnapshot document : task.getResult()) {
+                    if (document.getBoolean("selected"))
+                        new TelegramNewsContent(new StringBuilder(document.getString("channel_link")), getContext(), mProgressBarNewsFragment, mScrollView).execute();
+                }
+            });
         } else {
-
             new TelegramNewsContent(new StringBuilder(Objects.requireNonNull(telegram_news.get(mViewModel.getNewsNavigationTypeValue()))), getContext(), mProgressBarNewsFragment, mScrollView).execute();
         }
     }

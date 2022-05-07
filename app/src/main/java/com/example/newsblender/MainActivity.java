@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -31,6 +32,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -135,7 +137,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         viewModel = new ViewModelProvider(this).get(ItemViewModel.class);
-        viewModel.setNewsNavigationTypeValue(LVIV);
+        viewModel.setNewsNavigationTypeValue(ALL_NEWS);
         setContentView(R.layout.activity_main);
 
         /* Setting main variables */
@@ -393,6 +395,7 @@ public class MainActivity extends AppCompatActivity {
                                 });
                             }
                         }
+                        recreate();
                         popupWindowChild.dismiss();
                     } catch (Exception e) {
                         Toast.makeText(this, "ERROR!", Toast.LENGTH_SHORT).show();
