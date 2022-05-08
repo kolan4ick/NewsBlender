@@ -31,6 +31,7 @@ import androidx.appcompat.widget.AppCompatCheckBox;
 import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
+import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
@@ -165,7 +166,16 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(mNavigationView, mNavController);
         navigationInit();
         mToolbar.setNavigationIcon(R.drawable.ic_menu_24dp);
-        mToolbar.setNavigationOnClickListener(view -> mDrawerLayout.open());
+        mToolbar.setNavigationOnClickListener(view -> {
+            if (viewModel.getNewsNavigationTypeValue() != ALL_NEWS || !Objects.requireNonNull(mNavController.getCurrentDestination()).getDisplayName().contains("newsFragment")) {
+                viewModel.setNewsNavigationTypeValue(ALL_NEWS);
+                mNavController.navigate(R.id.newsFragment);
+                mNavigationView.setCheckedItem(mNavigationView.getMenu().getItem(1));
+                mNavigationView.setCheckedItem(mNavigationView.getMenu().getItem(0));
+                mToolbar.setNavigationIcon(R.drawable.ic_menu_24dp);
+            } else
+                mDrawerLayout.open();
+        });
         Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
 
         /* Initialize image view */
@@ -178,10 +188,24 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onBackPressed() {
+        if (viewModel.getNewsNavigationTypeValue() != ALL_NEWS || !Objects.requireNonNull(mNavController.getCurrentDestination()).getDisplayName().contains("newsFragment")) {
+            viewModel.setNewsNavigationTypeValue(ALL_NEWS);
+            mNavController.navigate(R.id.newsFragment);
+            mNavigationView.setCheckedItem(mNavigationView.getMenu().getItem(1));
+            mNavigationView.setCheckedItem(mNavigationView.getMenu().getItem(0));
+            mToolbar.setNavigationIcon(R.drawable.ic_menu_24dp);
+        }
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        }
+    }
+
     @SuppressLint("NonConstantResourceId")
     private void navigationInit() {
         mNavigationView.getMenu().getItem(0).setChecked(true);
-
         mNavigationView.setNavigationItemSelectedListener(menuItem -> {
             if (menuItem.equals(mNavigationView.getCheckedItem())) {
                 mDrawerLayout.close();
@@ -190,7 +214,7 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), menuItem.getTitle().toString(), Toast.LENGTH_SHORT).show();
             viewModel.setNewsNavigationTypeValue(menuItem.getItemId());
             mNavController.navigate(R.id.newsFragment);
-            mToolbar.setNavigationIcon(R.drawable.ic_menu_24dp);
+//            mToolbar.setNavigationIcon(R.drawable.ic_menu_24dp);
             mDrawerLayout.close();
             return true;
         });
@@ -373,7 +397,7 @@ public class MainActivity extends AppCompatActivity {
                             if (constraintLayout.getChildAt(i) instanceof AppCompatCheckBox) {
                                 AppCompatCheckBox appCompatCheckBox = (AppCompatCheckBox) constraintLayout.getChildAt(i);
 
-                                boolean flag = (i < telegram_news.length);
+                                boolean flag = (i + 1 < telegram_news.length);
                                 int finalI = i;
                                 newsResources.whereEqualTo("Uid", fUser.getUid())
                                         .whereEqualTo("channel_name", appCompatCheckBox.getText()).get().addOnCompleteListener(task -> {

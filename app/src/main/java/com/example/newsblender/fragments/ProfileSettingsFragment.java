@@ -82,7 +82,7 @@ public class ProfileSettingsFragment extends Fragment {
         imageView.setOnClickListener(view -> SelectImage());
 
         /* Change image view if exists */
-        if (appBarImageView.getDrawable() != null) {
+        if (appBarImageView != null && appBarImageView.getDrawable() != null) {
             imageView.setImageDrawable(appBarImageView.getDrawable());
         }
 
