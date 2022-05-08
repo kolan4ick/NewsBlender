@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -88,7 +89,7 @@ public class RegisterActivity extends AppCompatActivity {
 
             fAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
-                    InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.RESULT_UNCHANGED_SHOWN);
                     // send verification link
 
@@ -97,15 +98,9 @@ public class RegisterActivity extends AppCompatActivity {
                             .addOnSuccessListener(aVoid -> Toast.makeText(RegisterActivity.this, "Verification Email Has been Sent.", Toast.LENGTH_SHORT).show())
                             .addOnFailureListener(e -> Log.d(TAG, "onFailure: Email not sent " + e.getMessage()));
 
+                    UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder().setDisplayName(fullName).build();
+                    fuser.updateProfile(profileUpdates);
                     Toast.makeText(RegisterActivity.this, "User Created.", Toast.LENGTH_SHORT).show();
-                    mUserID = fAuth.getCurrentUser().getUid();
-                    DocumentReference documentReference = fStore.collection("users").document(mUserID);
-                    Map<String, Object> user = new HashMap<>();
-                    user.put("fName", fullName);
-                    user.put("email", email);
-                    documentReference.set(user)
-                            .addOnSuccessListener(aVoid -> Log.d(TAG, "onSuccess: user Profile is created for " + mUserID))
-                            .addOnFailureListener(e -> Log.d(TAG, "onFailure: " + e));
                     startActivity(new Intent(getApplicationContext(), MainActivity.class));
                 } else {
                     Toast.makeText(RegisterActivity.this, "Error ! " + Objects.requireNonNull(task.getException()).getMessage(), Toast.LENGTH_SHORT).show();
