@@ -69,4 +69,9 @@
     <string name="save">Save</string>
     <string name="fullname">Full name</string>
     <string name="inbox">Email</string>
+    <string name="cancel">Cancel</string>
+    <string name="add">Add</string>
+    <string name="add_your_news_resource">Add your news resource right now</string>
+    <string name="add_telegram_link">Link to the telegram channel</string>
+    <string name="success">Success!</string>
 </resources>
