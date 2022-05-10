@@ -8,10 +8,13 @@ import android.os.AsyncTask;
 import android.text.Html;
 import android.util.Log;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.Toast;
+
+import androidx.cardview.widget.CardView;
 
 import com.example.newsblender.MainActivity;
 import com.smarteist.autoimageslider.SliderView;
@@ -117,6 +120,12 @@ public class TelegramNewsContent extends AsyncTask<Void, Void, Void> {
     protected void onPostExecute(Void unused) {
         super.onPostExecute(unused);
         progressBar.setVisibility(View.GONE);
-        telegramNews.forEach(item -> ((LinearLayout) scrollView.getChildAt(0)).addView(item.getNews(context)));
+        telegramNews.forEach(item -> {
+            CardView cardView = item.getNews(context);
+            ((LinearLayout) scrollView.getChildAt(0)).addView(cardView);
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+            layoutParams.setMargins(20, 20, 20, 0);
+            cardView.setLayoutParams(layoutParams);
+        });
     }
 }

@@ -5,47 +5,35 @@ import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
 import android.text.Html;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.example.newsblender.MainActivity;
 import com.example.newsblender.R;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.model.Document;
-import com.google.type.DateTime;
 import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType;
 import com.smarteist.autoimageslider.SliderAnimations;
 import com.smarteist.autoimageslider.SliderView;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -80,9 +68,10 @@ public class TelegramNews {
         return photoLinks;
     }
 
-    public ConstraintLayout getNews(Context context) {
-        ConstraintLayout constraintLayout = (ConstraintLayout) LayoutInflater.from(context).inflate(R.layout.test, null);
-        constraintLayout.setBackgroundColor(context.getColor(R.color.gray_tint));
+    public CardView getNews(Context context) {
+        CardView cardView = (CardView) LayoutInflater.from(context).inflate(R.layout.news_card, null);
+        ConstraintLayout constraintLayout = cardView.findViewById(R.id.newsCardConstraintLayout);
+//        constraintLayout.setBackgroundColor(context.getColor(R.color.gray_tint));
 
         /* Initialize ownerName */
         TextView ownerName = constraintLayout.findViewById(R.id.ownerName);
@@ -171,7 +160,7 @@ public class TelegramNews {
             view1.setBackgroundResource(R.drawable.background_tint);
             mDrawerLayout.addView(view1);
         });
-        return constraintLayout;
+        return cardView;
     }
 
     private final String ownerName;

@@ -20,4 +20,5 @@
     <color name="PopUpHeaderColorFirstIncognito">#35363A</color>
     <color name="PopUpHeaderColorSecondIncognito">#35363A</color>
     <color name="waves_background">#4D4D4D</color>
+    <color name="cardNewsBackground">#1E2429</color>
 </resources>
