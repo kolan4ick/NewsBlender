@@ -174,7 +174,13 @@ public class MainActivity extends AppCompatActivity {
         mStorageReference.child("images/" + Objects.requireNonNull(fAuth.getCurrentUser()).getUid()).getDownloadUrl().addOnSuccessListener(uri -> {
             Glide.with(this).load(uri).into(popUpButtonImageView);
         });
+        mNavController.addOnDestinationChangedListener((navController, navDestination, bundle) -> {
+            if (navDestination.getDisplayName().contains("newsFragment") && viewModel.getNewsNavigationTypeValue() == ALL_NEWS)
+                mToolbar.setNavigationIcon(R.drawable.ic_menu_24dp);
+            else mToolbar.setNavigationIcon(R.drawable.ic_arrow);
 
+
+        });
     }
 
     @Override
@@ -203,7 +209,6 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), menuItem.getTitle().toString(), Toast.LENGTH_SHORT).show();
             viewModel.setNewsNavigationTypeValue(menuItem.getItemId());
             mNavController.navigate(R.id.newsFragment);
-//            mToolbar.setNavigationIcon(R.drawable.ic_menu_24dp);
             mDrawerLayout.close();
             return true;
         });

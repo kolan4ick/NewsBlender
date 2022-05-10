@@ -27,11 +27,12 @@ public class SettingsFragment extends PreferenceFragmentCompat {
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         setPreferencesFromResource(R.xml.root_preferences, rootKey);
+        mViewModel = new ViewModelProvider(requireActivity()).get(ItemViewModel.class);
 
         findPreference("theme").setOnPreferenceChangeListener((preference, newValue) -> {
-            if (newValue.equals(getString(R.string.dark)))
+            if (newValue.equals(getString(R.string.dark))) {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-            else AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+            } else AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
             return true;
         });
         findPreference("font_size").setOnPreferenceChangeListener(((preference, newValue) -> {
