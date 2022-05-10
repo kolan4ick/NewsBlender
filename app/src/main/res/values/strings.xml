@@ -80,4 +80,10 @@
     <string name="add_your_news_resource">Додай свій новинний ресур прямо зараз</string>
     <string name="add_telegram_link">Посилання на телеграм канал</string>
     <string name="success">Успіх!</string>
+    <string name="uk">uk</string>
+    <string name="small">Малий</string>
+    <string name="medium">Середній</string>
+    <string name="large">Великий</string>
+    <string name="light">Світла</string>
+    <string name="dark">Темна</string>
 </resources>

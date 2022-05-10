@@ -74,4 +74,9 @@
     <string name="add_your_news_resource">Add your news resource right now</string>
     <string name="add_telegram_link">Link to the telegram channel</string>
     <string name="success">Success!</string>
+    <string name="small">Small</string>
+    <string name="medium">Medium</string>
+    <string name="large">Large</string>
+    <string name="light">Light</string>
+    <string name="dark">Dark</string>
 </resources>

@@ -1,13 +1,13 @@
 <resources>
     <string-array name="theme_values">
-        <item>@string/light</item>
-        <item>@string/dark</item>
+        <item>Светлая</item>
+        <item>Темная</item>
     </string-array>
 
     <string-array name="font_size_values">
-        <item>@string/small</item>
-        <item>@string/medium</item>
-        <item>@string/large</item>
+        <item>Малый</item>
+        <item>Средний</item>
+        <item>Большой</item>
     </string-array>
 
     <string-array name="font_values">
@@ -15,16 +15,12 @@
         <item>Ubuntu</item>
     </string-array>
 
+
     <string-array name="news_count">
         <item>5</item>
         <item>10</item>
         <item>15</item>
         <item>25</item>
         <item>50</item>
-    </string-array>
-    <string-array name="language">
-        <item>Українська</item>
-        <item>Русский</item>
-        <item>English</item>
     </string-array>
 </resources>

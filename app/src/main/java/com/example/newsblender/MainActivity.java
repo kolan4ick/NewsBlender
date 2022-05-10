@@ -1,14 +1,13 @@
 package com.example.newsblender;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
-import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
+import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -20,12 +19,11 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
-import android.widget.ProgressBar;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatCheckBox;
 import androidx.appcompat.widget.Toolbar;
@@ -33,17 +31,16 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+import androidx.preference.PreferenceManager;
 
 import com.bumptech.glide.Glide;
 import com.example.newsblender.classes.AddTelegramChannel;
 import com.example.newsblender.classes.ItemViewModel;
-import com.example.newsblender.classes.TelegramNews;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -58,15 +55,8 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-
-import java.io.IOException;
-import java.time.LocalDateTime;
-import java.time.ZoneOffset;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 
@@ -114,12 +104,6 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseStorage fStorage;
     private StorageReference mStorageReference;
     private GoogleSignInClient mSignInClient;
-
-    //    private final int uiFlags = View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-    //            | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-    //            | View.SYSTEM_UI_FLAG_FULLSCREEN
-    //            | View.SYSTEM_UI_FLAG_IMMERSIVE;
-
     private DrawerLayout mDrawerLayout;
     private NavigationView mNavigationView;
     private NavController mNavController;
@@ -133,12 +117,18 @@ public class MainActivity extends AppCompatActivity {
     private TextView mTextViewProfileSettings;
     private TextView mTextViewApplicationSettings;
     private ImageView popUpButtonImageView;
+    private SharedPreferences prefs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         viewModel = new ViewModelProvider(this).get(ItemViewModel.class);
         viewModel.setNewsNavigationTypeValue(ALL_NEWS);
+        prefs = PreferenceManager.getDefaultSharedPreferences(this);
+
+        /* Initialize preferences */
+        initPreferences();
+
         setContentView(R.layout.activity_main);
 
         /* Setting main variables */
@@ -184,7 +174,6 @@ public class MainActivity extends AppCompatActivity {
         mStorageReference.child("images/" + Objects.requireNonNull(fAuth.getCurrentUser()).getUid()).getDownloadUrl().addOnSuccessListener(uri -> {
             Glide.with(this).load(uri).into(popUpButtonImageView);
         });
-
 
     }
 
@@ -271,8 +260,8 @@ public class MainActivity extends AppCompatActivity {
             viewStub.inflate();
 
             imageView.setImageDrawable(getDrawable(R.drawable.ic_avatar_incognito_24dp));
-            View view1 = popupView.findViewById(R.id.popUpHeader);
-            view1.setBackgroundResource(R.drawable.rectangle_gradient_incognito);
+            View constraint = popupView.findViewById(R.id.popUpWindowConstraintLayout);
+            constraint.setBackgroundResource(R.drawable.rectangle_gradient_incognito);
             userName.setText(R.string.incognito);
             userName.setTextColor(Color.WHITE);
             Button mButtonSignOut = popupView.findViewById(R.id.buttonSignOutAnonymous);
@@ -282,6 +271,8 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(login_activity);
             });
         } else {
+            View constraint = popupView.findViewById(R.id.popUpWindowConstraintLayout);
+            constraint.setBackgroundResource(R.drawable.rectangle_gradient);
             imageView.setImageDrawable(popUpButtonImageView.getDrawable());
             userName.setText(fUser.getDisplayName());
             viewStub.setLayoutResource(R.layout.pop_up_params);
@@ -401,22 +392,22 @@ public class MainActivity extends AppCompatActivity {
                                 int finalI = i;
                                 newsResources.whereEqualTo("Uid", fUser.getUid())
                                         .whereEqualTo("channel_name", appCompatCheckBox.getText()).get().addOnCompleteListener(task -> {
-                                    if (task.isSuccessful()) {
-                                        if (task.getResult().size() == 0 && flag) {
-                                            Map<String, Object> newsResource = new HashMap<>();
-                                            newsResource.put("channel_name", appCompatCheckBox.getText());
-                                            newsResource.put("selected", appCompatCheckBox.isChecked());
-                                            newsResource.put("channel_link", telegram_news[finalI]);
-                                            newsResource.put("Uid", Objects.requireNonNull(fAuth.getCurrentUser()).getUid());
-                                            newsResource.put("date_added", Timestamp.now());
-                                            db.collection("news_resources").document().set(newsResource);
-                                        } else
-                                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                                DocumentReference documentReference = document.getReference();
-                                                documentReference.update("selected", appCompatCheckBox.isChecked());
+                                            if (task.isSuccessful()) {
+                                                if (task.getResult().size() == 0 && flag) {
+                                                    Map<String, Object> newsResource = new HashMap<>();
+                                                    newsResource.put("channel_name", appCompatCheckBox.getText());
+                                                    newsResource.put("selected", appCompatCheckBox.isChecked());
+                                                    newsResource.put("channel_link", telegram_news[finalI]);
+                                                    newsResource.put("Uid", Objects.requireNonNull(fAuth.getCurrentUser()).getUid());
+                                                    newsResource.put("date_added", Timestamp.now());
+                                                    db.collection("news_resources").document().set(newsResource);
+                                                } else
+                                                    for (QueryDocumentSnapshot document : task.getResult()) {
+                                                        DocumentReference documentReference = document.getReference();
+                                                        documentReference.update("selected", appCompatCheckBox.isChecked());
+                                                    }
                                             }
-                                    }
-                                });
+                                        });
                             }
                         }
                         recreate();
@@ -468,5 +459,53 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         return null;
+    }
+
+    /* Method for initialize base settings */
+    private void initPreferences() {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor prefsEditor = prefs.edit();
+        String[] fontSizeValues = getResources().getStringArray(R.array.font_size_values);
+        String[] languageValues = getResources().getStringArray(R.array.language);
+        int font_size_id = 0;
+
+        /* Set the font size*/
+        if (prefs.getString("font_size", fontSizeValues[1]).equals(fontSizeValues[0])) {
+            if (prefs.getString("font", "Inter").equals("Inter"))
+                setTheme(R.style.Theme_NewsBlender_Small_Inter);
+            else setTheme(R.style.Theme_NewsBlender_Small_Ubuntu);
+        } else if (prefs.getString("font_size", fontSizeValues[1]).equals(fontSizeValues[1])) {
+            if (prefs.getString("font", "Inter").equals("Inter"))
+                setTheme(R.style.Theme_NewsBlender_Normal_Inter);
+            else setTheme(R.style.Theme_NewsBlender_Normal_Ubuntu);
+            font_size_id = 1;
+        } else {
+            if (prefs.getString("font", "Inter").equals("Inter"))
+                setTheme(R.style.Theme_NewsBlender_Large_Inter);
+            else setTheme(R.style.Theme_NewsBlender_Large_Ubuntu);
+            font_size_id = 2;
+        }
+
+        /* Set the locale, must be in the end */
+        if (prefs.getString("language", languageValues[0]).equals(languageValues[0])) {
+            changeLocale("uk");
+        } else if (prefs.getString("language", languageValues[0]).equals(languageValues[1])) {
+            changeLocale("ru");
+        } else {
+            changeLocale("en");
+        }
+
+        prefsEditor.putString("font_size", getResources().getStringArray(R.array.font_size_values)[font_size_id]);
+        prefsEditor.putString("theme", getResources().getStringArray(R.array.theme_values)[AppCompatDelegate.getDefaultNightMode() - 1]);
+
+        prefsEditor.apply();
+    }
+
+    private void changeLocale(String language) {
+        Resources res = getResources();
+        DisplayMetrics dm = res.getDisplayMetrics();
+        Configuration conf = res.getConfiguration();
+        conf.setLocale(new Locale(language));
+        res.updateConfiguration(conf, dm);
     }
 }

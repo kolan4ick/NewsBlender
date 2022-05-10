@@ -86,6 +86,7 @@ public class TelegramNews {
 
         /* Initialize ownerName */
         TextView ownerName = constraintLayout.findViewById(R.id.ownerName);
+        ownerName.setMaxWidth(900);
         ownerName.setText(Html.fromHtml(getOwnerName()));
 
         /* Initialize body */

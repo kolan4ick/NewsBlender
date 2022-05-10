@@ -61,7 +61,7 @@
     <string name="okButton">ОК</string>
     <string name="exitButton">Выход</string>
     <string name="preferences_theme">Тема</string>
-    <string name="font_size">Розмер шрифта</string>
+    <string name="font_size">Размер шрифта</string>
     <string name="font">Шрифт</string>
     <string name="language">Язык</string>
     <string name="news_count">Количество новостей для сохранения</string>
@@ -71,7 +71,12 @@
     <string name="inbox">Почтовый адрес</string>
     <string name="cancel">Отменить</string>
     <string name="add">Добавить</string>
-    <string name="add_your_news_resource">Добавьте свой новосной ресурс прямо сейчас</string>
+    <string name="add_your_news_resource">Добавьте свой новостной ресурс прямо сейчас</string>
     <string name="add_telegram_link">Ссылка на телеграм канал</string>
     <string name="success">Успех!</string>
+    <string name="small">Малый</string>
+    <string name="medium">Средний</string>
+    <string name="large">Большой</string>
+    <string name="light">Светлая</string>
+    <string name="dark">Темная</string>
 </resources>

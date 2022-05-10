@@ -2,30 +2,26 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/PopUpBottomColor">
 
-    <View
-            android:id="@+id/rectangle_bottom"
-            android:layout_width="198dp"
-            android:layout_height="129dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:background="@color/PopUpBottomColor"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:minHeight="30dp"
             android:id="@+id/buttonSignOutAnonymous"
             android:text="@string/sign_out_incognito"
+            android:background="@drawable/incognito_exit_btn_background"
+            android:textColor="@color/white"
             android:minWidth="183dp"
             android:maxWidth="183dp"
+            android:layout_marginStart="7dp"
+            android:layout_marginEnd="7dp"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="4dp"
-            app:layout_constraintBottom_toBottomOf="@+id/rectangle_bottom"
-            app:layout_constraintEnd_toEndOf="@+id/rectangle_bottom"
-            app:layout_constraintStart_toStartOf="parent" />
+            android:layout_marginTop="46dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginBottom="46dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,11 +5,13 @@
             app:title="@string/font_size"
             app:entries="@array/font_size_values"
             app:entryValues="@array/font_size_values"
-            app:defaultValue="Середній"
+            app:defaultValue=""
+            app:icon="@drawable/ic_font_size"
             app:useSimpleSummaryProvider="true" />
     <ListPreference
             app:key="font"
             app:title="@string/font"
+            app:icon="@drawable/ic_font"
             app:entries="@array/font_values"
             app:entryValues="@array/font_values"
             app:defaultValue="Inter"
@@ -17,6 +19,7 @@
     <ListPreference
             app:key="theme"
             app:title="@string/preferences_theme"
+            app:icon="@drawable/ic_theme"
             app:entries="@array/theme_values"
             app:entryValues="@array/theme_values"
             app:defaultValue="Світла"
@@ -25,6 +28,7 @@
     <ListPreference
             app:key="language"
             app:title="@string/language"
+            app:icon="@drawable/ic_language"
             app:entries="@array/language"
             app:entryValues="@array/language"
             app:defaultValue="Українська"
@@ -34,6 +38,7 @@
             app:key="news_count"
             app:title="@string/news_count"
             app:entries="@array/news_count"
+            app:icon="@drawable/ic_news_count"
             app:entryValues="@array/news_count"
             app:defaultValue="5"
             app:useSimpleSummaryProvider="true" />
