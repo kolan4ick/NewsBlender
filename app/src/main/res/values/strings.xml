@@ -9,7 +9,7 @@
     <string name="forgot_password">Забули пароль?</string>
     <string name="full_name">Повне Ім\'я</string>
     <string name="sign_up">Зареєструватись</string>
-    <string name="sign_up_login_hint">Вже зареєстрований? Увійти</string>
+    <string name="sign_up_login_hint">Вже зареєстровані? Увійти</string>
     <string name="all_news">Всі новини</string>
     <string name="nav_open">Відкрити</string>
     <string name="nav_close">Закрити</string>
@@ -18,7 +18,6 @@
     <string name="sync_header">Синхронізація</string>
 
     <!-- Messages Preferences -->
-    <string name="signature_title">Your signature</string>
     <string name="reply_title">Default reply action</string>
 
     <!-- Sync Preferences -->
@@ -54,13 +53,13 @@
     <string name="luhansk">Луганська</string>
     <string name="donetsk">Донецька</string>
     <string name="sumy">Сумська</string>
-    <string name="user_profile">Інформація о користувачі</string>
+    <string name="user_profile">Інформація про користувача</string>
     <string name="news_resources">Новинні ресурси</string>
     <string name="saved">Збережені</string>
     <string name="settings_profile">Налаштування профіля</string>
     <string name="application_settings">Налаштування додатку</string>
     <string name="sign_out_incognito">Вихід з Incognito</string>
-    <string name="userProfileTitleTextView">Інформація о користувачі</string>
+    <string name="userProfileTitleTextView">Інформація про користувача</string>
     <string name="registerDateTextView">Дата реєстрації:</string>
     <string name="userLoginTextView">Логін користувача:</string>
     <string name="userInboxTextView">Поштова скринька:</string>
@@ -80,10 +79,36 @@
     <string name="add_your_news_resource">Додай свій новинний ресур прямо зараз</string>
     <string name="add_telegram_link">Посилання на телеграм канал</string>
     <string name="success">Успіх!</string>
-    <string name="uk">uk</string>
+    <string name="uk" translatable="false">uk</string>
     <string name="small">Малий</string>
     <string name="medium">Середній</string>
     <string name="large">Великий</string>
     <string name="light">Світла</string>
     <string name="dark">Темна</string>
+
+    <string name="vinnutsia_chkbx" translatable="false">Vinnitska</string>
+    <string name="volyn_chkbx" translatable="false">Volynska</string>
+    <string name="dnipropetrovsk_chkbx" translatable="false">Dnipropetrovska</string>
+    <string name="transcarpathian_chkbx" translatable="false">Zakarpatska</string>
+    <string name="zaporizhzhia_chkbx" translatable="false">Zaporizhska</string>
+    <string name="ivano_frankivsk_chkbx" translatable="false">Ivano-Frankivska</string>
+    <string name="kyiv_chkbx" translatable="false">Kyivska</string>
+    <string name="kirovohrad_chkbx" translatable="false">Kirovohradska</string>
+    <string name="lviv_chkbx" translatable="false">Lvivska</string>
+    <string name="mykolayiv_chkbx" translatable="false">Mykolaivska</string>
+    <string name="odesa_chkbx" translatable="false">Odeska</string>
+    <string name="rivne_chkbx" translatable="false">Rivenska</string>
+    <string name="ternopil_chkbx" translatable="false">Ternopilska</string>
+    <string name="kharkiv_chkbx" translatable="false">Kharkivska</string>
+    <string name="kherson_chkbx" translatable="false">Khersonska</string>
+    <string name="khmelnytsky_chkbx" translatable="false">Khmelnystska</string>
+    <string name="cherkasy_chkbx" translatable="false">Cherkaska</string>
+    <string name="chernihiv_chkbx" translatable="false">Chernihivska</string>
+    <string name="chernivtsi_chkbx" translatable="false">Chernivetska</string>
+    <string name="zhytomyr_chkbx" translatable="false">Zhytomyrska</string>
+    <string name="poltava_chkbx" translatable="false">Poltavska</string>
+    <string name="luhansk_chkbx" translatable="false">Luhanska</string>
+    <string name="donetsk_chkbx" translatable="false">Donetska</string>
+    <string name="sumy_chkbx" translatable="false">Sumska</string>
+
 </resources>

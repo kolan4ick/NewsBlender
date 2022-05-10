@@ -60,7 +60,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/chkbx_vinnutsia"
-                    android:text="@string/vinnutsia"
+                    android:text="@string/vinnutsia_chkbx"
                     android:paddingStart="8dp"
                     android:button="@drawable/checkbox"
                     app:layout_constraintStart_toStartOf="parent"
@@ -72,7 +72,7 @@
                     android:id="@+id/chkbx_volyn"
                     android:paddingStart="8dp"
                     android:button="@drawable/checkbox"
-                    android:text="@string/volyn"
+                    android:text="@string/volyn_chkbx"
                     app:layout_constraintTop_toBottomOf="@id/chkbx_vinnutsia"
                     app:layout_constraintStart_toStartOf="parent" />
 
@@ -82,7 +82,7 @@
                     android:paddingStart="8dp"
                     android:button="@drawable/checkbox"
                     android:id="@+id/chkbx_dnipropetrovsk"
-                    android:text="@string/dnipropetrovsk"
+                    android:text="@string/dnipropetrovsk_chkbx"
                     app:layout_constraintTop_toBottomOf="@id/chkbx_volyn"
                     app:layout_constraintStart_toStartOf="parent" />
 
@@ -92,7 +92,7 @@
                     android:paddingStart="8dp"
                     android:button="@drawable/checkbox"
                     android:id="@+id/chkbx_transcarpathian"
-                    android:text="@string/transcarpathian"
+                    android:text="@string/transcarpathian_chkbx"
                     app:layout_constraintTop_toBottomOf="@id/chkbx_dnipropetrovsk"
                     app:layout_constraintStart_toStartOf="parent" />
 
@@ -102,7 +102,7 @@
                     android:button="@drawable/checkbox"
                     android:layout_height="wrap_content"
                     android:id="@+id/chkbx_zaporizhzhia"
-                    android:text="@string/zaporizhzhia"
+                    android:text="@string/zaporizhzhia_chkbx"
                     app:layout_constraintTop_toBottomOf="@id/chkbx_transcarpathian"
                     app:layout_constraintStart_toStartOf="parent" />
 
@@ -112,7 +112,7 @@
                     android:button="@drawable/checkbox"
                     android:layout_height="wrap_content"
                     android:id="@+id/chkbx_ivano_frankivsk"
-                    android:text="@string/ivano_frankivsk"
+                    android:text="@string/ivano_frankivsk_chkbx"
                     app:layout_constraintTop_toBottomOf="@id/chkbx_zaporizhzhia"
                     app:layout_constraintStart_toStartOf="parent" />
 
@@ -122,7 +122,7 @@
                     android:button="@drawable/checkbox"
                     android:layout_height="wrap_content"
                     android:id="@+id/chkbx_kyiv"
-                    android:text="@string/kyiv"
+                    android:text="@string/kyiv_chkbx"
                     app:layout_constraintTop_toBottomOf="@id/chkbx_ivano_frankivsk"
                     app:layout_constraintStart_toStartOf="parent" />
 
@@ -132,7 +132,7 @@
                     android:button="@drawable/checkbox"
                     android:layout_height="wrap_content"
                     android:id="@+id/chkbx_kirovohrad"
-                    android:text="@string/kirovohrad"
+                    android:text="@string/kirovohrad_chkbx"
                     app:layout_constraintTop_toBottomOf="@id/chkbx_kyiv"
                     app:layout_constraintStart_toStartOf="parent" />
 
@@ -142,7 +142,7 @@
                     android:paddingStart="8dp"
                     android:button="@drawable/checkbox"
                     android:id="@+id/chkbx_lviv"
-                    android:text="@string/lviv"
+                    android:text="@string/lviv_chkbx"
                     app:layout_constraintTop_toBottomOf="@id/chkbx_kirovohrad"
                     app:layout_constraintStart_toStartOf="parent" />
 
@@ -152,7 +152,7 @@
                     android:paddingStart="8dp"
                     android:button="@drawable/checkbox"
                     android:id="@+id/chkbx_mykolayiv"
-                    android:text="@string/mykolayiv"
+                    android:text="@string/mykolayiv_chkbx"
                     app:layout_constraintTop_toBottomOf="@id/chkbx_lviv"
                     app:layout_constraintStart_toStartOf="parent" />
 
@@ -162,7 +162,7 @@
                     android:button="@drawable/checkbox"
                     android:layout_height="wrap_content"
                     android:id="@+id/chkbx_odesa"
-                    android:text="@string/odesa"
+                    android:text="@string/odesa_chkbx"
                     app:layout_constraintTop_toBottomOf="@id/chkbx_mykolayiv"
                     app:layout_constraintStart_toStartOf="parent" />
 
@@ -172,7 +172,7 @@
                     android:button="@drawable/checkbox"
                     android:layout_height="wrap_content"
                     android:id="@+id/chkbx_rivne"
-                    android:text="@string/rivne"
+                    android:text="@string/rivne_chkbx"
                     app:layout_constraintTop_toBottomOf="@id/chkbx_odesa"
                     app:layout_constraintStart_toStartOf="parent" />
 
@@ -182,7 +182,7 @@
                     android:paddingStart="8dp"
                     android:button="@drawable/checkbox"
                     android:id="@+id/chkbx_ternopil"
-                    android:text="@string/ternopil"
+                    android:text="@string/ternopil_chkbx"
                     app:layout_constraintTop_toBottomOf="@id/chkbx_rivne"
                     app:layout_constraintStart_toStartOf="parent" />
 
@@ -192,7 +192,7 @@
                     android:id="@+id/chkbx_kharkiv"
                     android:paddingStart="8dp"
                     android:button="@drawable/checkbox"
-                    android:text="@string/kharkiv"
+                    android:text="@string/kharkiv_chkbx"
                     app:layout_constraintTop_toBottomOf="@id/chkbx_ternopil"
                     app:layout_constraintStart_toStartOf="parent" />
 
@@ -202,7 +202,7 @@
                     android:button="@drawable/checkbox"
                     android:layout_height="wrap_content"
                     android:id="@+id/chkbx_kherson"
-                    android:text="@string/kherson"
+                    android:text="@string/kherson_chkbx"
                     app:layout_constraintTop_toBottomOf="@id/chkbx_kharkiv"
                     app:layout_constraintStart_toStartOf="parent" />
 
@@ -212,7 +212,7 @@
                     android:paddingStart="8dp"
                     android:button="@drawable/checkbox"
                     android:id="@+id/chkbx_khmelnytsky"
-                    android:text="@string/khmelnytsky"
+                    android:text="@string/khmelnytsky_chkbx"
                     app:layout_constraintTop_toBottomOf="@id/chkbx_kherson"
                     app:layout_constraintStart_toStartOf="parent" />
 
@@ -222,7 +222,7 @@
                     android:paddingStart="8dp"
                     android:button="@drawable/checkbox"
                     android:id="@+id/chkbx_cherkasy"
-                    android:text="@string/cherkasy"
+                    android:text="@string/cherkasy_chkbx"
                     app:layout_constraintTop_toBottomOf="@id/chkbx_khmelnytsky"
                     app:layout_constraintStart_toStartOf="parent" />
 
@@ -232,7 +232,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/chkbx_chernihiv"
-                    android:text="@string/chernihiv"
+                    android:text="@string/chernihiv_chkbx"
                     app:layout_constraintTop_toBottomOf="@id/chkbx_cherkasy"
                     app:layout_constraintStart_toStartOf="parent" />
 
@@ -242,7 +242,7 @@
                     android:button="@drawable/checkbox"
                     android:layout_height="wrap_content"
                     android:id="@+id/chkbx_chernivtsi"
-                    android:text="@string/chernivtsi"
+                    android:text="@string/chernivtsi_chkbx"
                     app:layout_constraintTop_toBottomOf="@id/chkbx_chernihiv"
                     app:layout_constraintStart_toStartOf="parent" />
 
@@ -252,7 +252,7 @@
                     android:paddingStart="8dp"
                     android:button="@drawable/checkbox"
                     android:id="@+id/chkbx_zhytomyr"
-                    android:text="@string/zhytomyr"
+                    android:text="@string/zhytomyr_chkbx"
                     app:layout_constraintTop_toBottomOf="@id/chkbx_chernivtsi"
                     app:layout_constraintStart_toStartOf="parent" />
 
@@ -262,7 +262,7 @@
                     android:paddingStart="8dp"
                     android:button="@drawable/checkbox"
                     android:id="@+id/chkbx_poltava"
-                    android:text="@string/poltava"
+                    android:text="@string/poltava_chkbx"
                     app:layout_constraintTop_toBottomOf="@id/chkbx_zhytomyr"
                     app:layout_constraintStart_toStartOf="parent" />
 
@@ -272,7 +272,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/chkbx_luhansk"
-                    android:text="@string/luhansk"
+                    android:text="@string/luhansk_chkbx"
                     app:layout_constraintTop_toBottomOf="@id/chkbx_poltava"
                     app:layout_constraintStart_toStartOf="parent" />
 
@@ -282,7 +282,7 @@
                     android:paddingStart="8dp"
                     android:button="@drawable/checkbox"
                     android:id="@+id/chkbx_donetsk"
-                    android:text="@string/donetsk"
+                    android:text="@string/donetsk_chkbx"
                     app:layout_constraintTop_toBottomOf="@id/chkbx_luhansk"
                     app:layout_constraintStart_toStartOf="parent" />
 
@@ -290,7 +290,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/chkbx_sumy"
-                    android:text="@string/sumy"
+                    android:text="@string/sumy_chkbx"
                     android:paddingStart="8dp"
                     android:button="@drawable/checkbox"
                     app:layout_constraintTop_toBottomOf="@id/chkbx_donetsk"

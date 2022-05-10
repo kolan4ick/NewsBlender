@@ -9,13 +9,12 @@
     <string name="forgot_password">Забыли пароль?</string>
     <string name="full_name">Полное имя</string>
     <string name="sign_up">Зарегистрироваться</string>
-    <string name="sign_up_login_hint">Уже зарегистрирован? Войти</string>
+    <string name="sign_up_login_hint">Уже зарегистрированы? Войти</string>
     <string name="all_news">Все новости</string>
     <string name="nav_open">Открыть</string>
     <string name="nav_close">Закрыть</string>
     <string name="messages_header">Сообщения</string>
     <string name="sync_header">Синхронизация</string>
-    <string name="signature_title">Your signature</string>
     <string name="reply_title">Default reply action</string>
     <string name="sync_title">Sync email periodically</string>
     <string name="attachment_title">Download incoming attachments</string>
@@ -26,7 +25,7 @@
     <string name="incognito">Инкогнито</string>
     <string name="vinnutsia">Винницкая</string>
     <string name="volyn">Волынская</string>
-    <string name="dnipropetrovsk">Днипропетровская</string>
+    <string name="dnipropetrovsk">Днепропетровская</string>
     <string name="transcarpathian">Закарпатская</string>
     <string name="zaporizhzhia">Запорожская</string>
     <string name="ivano_frankivsk">Ивано-Франковськая</string>

@@ -28,14 +28,15 @@
             android:layout_marginTop="58dp" />
 
     <TextView
-            android:layout_width="144dp"
+            android:layout_width="174dp"
             android:layout_height="wrap_content"
             android:id="@+id/popUpAddNewsResourceTitle"
             android:text="@string/add_your_news_resource"
             app:layout_constraintTop_toBottomOf="@+id/telegramImageView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginTop="9dp" />
+            android:layout_marginTop="9dp"
+            android:textAlignment="center" />
 
     <EditText
             android:layout_width="wrap_content"
@@ -56,7 +57,7 @@
             android:text="@string/add"
             android:layout_width="144dp"
             android:layout_height="25dp"
-            android:background="@drawable/blue_button_background"
+            android:background="@drawable/regular_button_background"
             android:id="@+id/popUpAddNewsResourceAddButton"
             app:layout_constraintTop_toBottomOf="@+id/popUpAddNewsResourceEditText"
             app:layout_constraintEnd_toEndOf="parent"

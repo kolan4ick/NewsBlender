@@ -62,7 +62,7 @@ public class ProfileFragment extends Fragment {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
         registerDateValueTextView.setText(dateFormat.format(new Date(Objects.requireNonNull(Objects.requireNonNull(fAuth.getCurrentUser()).getMetadata()).getCreationTimestamp())));
 
-        mView.findViewById(R.id.okButton).setOnClickListener(item -> mViewModel.getNavigationViewValue().popBackStack());
+        mView.findViewById(R.id.okButton).setOnClickListener(item -> mViewModel.getNavigationViewValue().navigate(R.id.newsFragment));
         mView.findViewById(R.id.exitButton).setOnClickListener(item -> {
             fAuth.signOut();
             Intent login_activity = new Intent(this.getActivity(), LoginActivity.class);

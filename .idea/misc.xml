@@ -3,14 +3,22 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/StudioProjects/NewsBlender/app/src/main/res/drawable-night/ic_cancel_cross.xml" value="0.3035" />
         <entry key="..\:/StudioProjects/NewsBlender/app/src/main/res/drawable-night/ic_logo.xml" value="0.3015" />
         <entry key="..\:/StudioProjects/NewsBlender/app/src/main/res/drawable-night/ic_menu_24dp.xml" value="0.3015" />
+        <entry key="..\:/StudioProjects/NewsBlender/app/src/main/res/drawable-night/ic_save_news.xml" value="0.3035" />
+        <entry key="..\:/StudioProjects/NewsBlender/app/src/main/res/drawable-night/ic_share_news.xml" value="0.3035" />
+        <entry key="..\:/StudioProjects/NewsBlender/app/src/main/res/drawable-night/ic_waves.xml" value="0.3035" />
+        <entry key="..\:/StudioProjects/NewsBlender/app/src/main/res/drawable-night/ic_waves_popup.xml" value="0.3035" />
+        <entry key="..\:/StudioProjects/NewsBlender/app/src/main/res/drawable-night/regular_button_background.xml" value="0.3035" />
         <entry key="..\:/StudioProjects/NewsBlender/app/src/main/res/drawable/background_tint.xml" value="0.3005" />
+        <entry key="..\:/StudioProjects/NewsBlender/app/src/main/res/drawable/blue_button_background.xml" value="0.3035" />
         <entry key="..\:/StudioProjects/NewsBlender/app/src/main/res/drawable/checkbox.xml" value="0.3015" />
         <entry key="..\:/StudioProjects/NewsBlender/app/src/main/res/drawable/circle.xml" value="0.3015" />
         <entry key="..\:/StudioProjects/NewsBlender/app/src/main/res/drawable/ic_application_settings.xml" value="0.3005" />
         <entry key="..\:/StudioProjects/NewsBlender/app/src/main/res/drawable/ic_avatar_incognito.xml" value="0.3005" />
         <entry key="..\:/StudioProjects/NewsBlender/app/src/main/res/drawable/ic_avatar_incognito_24dp.xml" value="0.3005" />
+        <entry key="..\:/StudioProjects/NewsBlender/app/src/main/res/drawable/ic_cancel_cross.xml" value="0.3035" />
         <entry key="..\:/StudioProjects/NewsBlender/app/src/main/res/drawable/ic_checkbox_checked.xml" value="0.3015" />
         <entry key="..\:/StudioProjects/NewsBlender/app/src/main/res/drawable/ic_checkbox_unchecked.xml" value="0.3015" />
         <entry key="..\:/StudioProjects/NewsBlender/app/src/main/res/drawable/ic_details.xml" value="0.3015" />
@@ -23,6 +31,7 @@
         <entry key="..\:/StudioProjects/NewsBlender/app/src/main/res/drawable/ic_menu_slideshow.xml" value="0.3005" />
         <entry key="..\:/StudioProjects/NewsBlender/app/src/main/res/drawable/ic_news_resources.xml" value="0.3005" />
         <entry key="..\:/StudioProjects/NewsBlender/app/src/main/res/drawable/ic_pop_up_news_resources_footer.xml" value="0.3015" />
+        <entry key="..\:/StudioProjects/NewsBlender/app/src/main/res/drawable/ic_profile.xml" value="0.3035" />
         <entry key="..\:/StudioProjects/NewsBlender/app/src/main/res/drawable/ic_rectangle_1.xml" value="0.3015" />
         <entry key="..\:/StudioProjects/NewsBlender/app/src/main/res/drawable/ic_save_news.xml" value="0.3015" />
         <entry key="..\:/StudioProjects/NewsBlender/app/src/main/res/drawable/ic_saved.xml" value="0.3005" />
