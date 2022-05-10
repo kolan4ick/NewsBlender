@@ -60,10 +60,12 @@ public class LoginActivity extends AppCompatActivity {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 
         /* If you set dark theme in settings */
-        if (prefs.contains("theme") && prefs.getString("theme", getString(R.string.light)).equals(getString(R.string.dark)))
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-        else AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-
+        if (prefs.contains("theme")) {
+            String currentTheme = prefs.getString("theme", getString(R.string.light));
+            if (currentTheme.equals("Dark") || currentTheme.equals("Темная") || currentTheme.equals("Темна"))
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+            else AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
         setContentView(R.layout.activity_login);
         if (Util.isNetworkAvailable((ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE))) {
             mEmailInput = findViewById(R.id.email_input_sign_in);

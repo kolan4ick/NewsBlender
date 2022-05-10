@@ -463,7 +463,6 @@ public class MainActivity extends AppCompatActivity {
 
     /* Method for initialize base settings */
     private void initPreferences() {
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor prefsEditor = prefs.edit();
         String[] fontSizeValues = getResources().getStringArray(R.array.font_size_values);
         String[] languageValues = getResources().getStringArray(R.array.language);
@@ -494,6 +493,7 @@ public class MainActivity extends AppCompatActivity {
         } else {
             changeLocale("en");
         }
+
 
         prefsEditor.putString("font_size", getResources().getStringArray(R.array.font_size_values)[font_size_id]);
         prefsEditor.putString("theme", getResources().getStringArray(R.array.theme_values)[AppCompatDelegate.getDefaultNightMode() - 1]);

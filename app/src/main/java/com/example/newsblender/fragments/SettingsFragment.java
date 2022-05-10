@@ -35,23 +35,15 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             return true;
         });
         findPreference("font_size").setOnPreferenceChangeListener(((preference, newValue) -> {
-            Intent intent = requireActivity().getIntent();
-            requireActivity().finish();
-            startActivity(intent);
+            requireActivity().recreate();
             return true;
         }));
         findPreference("font").setOnPreferenceChangeListener(((preference, newValue) -> {
-//            TODO: change all visible texts according to chosen value
-            Intent intent = requireActivity().getIntent();
-            requireActivity().finish();
-            startActivity(intent);
+            requireActivity().recreate();
             return true;
         }));
         findPreference("language").setOnPreferenceChangeListener(((preference, newValue) -> {
-//            TODO: change all visible texts according to chosen value
-            Intent intent = requireActivity().getIntent();
-            requireActivity().finish();
-            startActivity(intent);
+            requireActivity().recreate();
             return true;
         }));
     }
