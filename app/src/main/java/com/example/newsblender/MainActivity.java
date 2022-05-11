@@ -501,7 +501,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         prefsEditor.putString("font_size", getResources().getStringArray(R.array.font_size_values)[font_size_id]);
-        prefsEditor.putString("theme", getResources().getStringArray(R.array.theme_values)[AppCompatDelegate.getDefaultNightMode() - 1]);
+        prefsEditor.putString("theme", getResources().getStringArray(R.array.theme_values)[(AppCompatDelegate.getDefaultNightMode() - 1) == -101 ? 0 : AppCompatDelegate.getDefaultNightMode() - 1]);
 
         prefsEditor.apply();
     }
