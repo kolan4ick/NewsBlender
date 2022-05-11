@@ -52,7 +52,7 @@ public class ProfileFragment extends Fragment {
         }
 
 
-        FirebaseAuth fAuth = mViewModel.getFAuth();
+        FirebaseAuth fAuth = FirebaseAuth.getInstance();
 
         TextView userLoginValueTextView = mView.findViewById(R.id.userLoginValueTextView);
         TextView userInboxValueTextView = mView.findViewById(R.id.userInboxValueTextView);

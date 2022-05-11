@@ -91,7 +91,7 @@ public class ProfileSettingsFragment extends Fragment {
 
         /* Initialize main variables */
         mViewModel = new ViewModelProvider(requireActivity()).get(ItemViewModel.class);
-        fAuth = mViewModel.getFAuth();
+        fAuth = FirebaseAuth.getInstance();
         mEditTextFullName = mView.findViewById(R.id.editTextFullName);
         mEditTextPassword = mView.findViewById(R.id.editTextPassword);
         mEditTextInbox = mView.findViewById(R.id.editTextInbox);

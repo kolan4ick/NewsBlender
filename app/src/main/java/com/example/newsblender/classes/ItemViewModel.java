@@ -10,12 +10,10 @@ import com.google.firebase.auth.FirebaseAuth;
 public class ItemViewModel extends ViewModel {
     private final MutableLiveData<Integer> newsNavigationType;
     private final MutableLiveData<NavController> navController;
-    private final MutableLiveData<FirebaseAuth> fAuth;
 
     public ItemViewModel() {
         this.newsNavigationType = new MutableLiveData<>();
         this.navController = new MutableLiveData<>();
-        this.fAuth = new MutableLiveData<>();
     }
 
     public Integer getNewsNavigationTypeValue() {
@@ -32,13 +30,5 @@ public class ItemViewModel extends ViewModel {
 
     public void setNavigationView(NavController navigationView) {
         this.navController.setValue(navigationView);
-    }
-
-    public FirebaseAuth getFAuth() {
-        return this.fAuth.getValue();
-    }
-
-    public void setfAuth(FirebaseAuth fAuth) {
-        this.fAuth.setValue(fAuth);
     }
 }

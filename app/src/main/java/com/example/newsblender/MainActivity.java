@@ -139,7 +139,6 @@ public class MainActivity extends AppCompatActivity {
         mDrawerLayout = findViewById(R.id.drawer_layout);
         mNavController = Navigation.findNavController(this, R.id.activity_main_nav_host_fragment);
         viewModel.setNavigationView(mNavController);
-        viewModel.setfAuth(fAuth);
         mToolbar = findViewById(R.id.topAppBar);
         NavigationUI.setupWithNavController(mNavigationView, mNavController);
 
