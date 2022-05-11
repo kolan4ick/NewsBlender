@@ -4,7 +4,6 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
-import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,25 +12,17 @@ import android.view.ViewGroup;
 import com.example.newsblender.R;
 import com.example.newsblender.classes.TelegramNews;
 import com.example.newsblender.classes.TelegramNewsContent;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.time.Instant;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
+import java.util.Objects;
 
 public class SavedNewsFragment extends Fragment {
     private View mView;
@@ -66,9 +57,9 @@ public class SavedNewsFragment extends Fragment {
                     String body = document.getString("body");
                     String linkToNews = document.getString("link_to_news");
                     String ownerName = document.getString("owner_name");
-                    LocalDateTime localDateTime = convertToLocalDateViaInstant(document.getDate("date").toInstant());
+                    LocalDateTime localDateTime = convertToLocalDateViaInstant(Objects.requireNonNull(document.getDate("date")).toInstant());
                     ArrayList<String> links_to_photos = (ArrayList<String>) document.get("photo_links");
-                    telegramNews.add(new TelegramNews(ownerName, localDateTime, linkToNews, body, links_to_photos));
+                    telegramNews.add(new TelegramNews(ownerName, localDateTime, linkToNews, body, links_to_photos, true));
                 }
                 new TelegramNewsContent(telegramNews, getContext(), mView.findViewById(R.id.progressBarSavedNewsFragment), mView.findViewById(R.id.scrollViewSavedNewsFragment)).execute();
             } else {

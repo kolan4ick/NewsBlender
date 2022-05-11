@@ -78,4 +78,10 @@
     <string name="large">Большой</string>
     <string name="light">Светлая</string>
     <string name="dark">Темная</string>
+    <string name="delete">Удалить</string>
+    <string name="are_you_sure">Вы уверены?</string>
+    <string name="yes">Да</string>
+    <string name="no">Нет</string>
+    <string name="deleting">Удаление!</string>
+    <string name="changing">Изменение!</string>
 </resources>

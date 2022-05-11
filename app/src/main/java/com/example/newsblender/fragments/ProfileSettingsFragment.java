@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -20,12 +21,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.newsblender.MainActivity;
 import com.example.newsblender.R;
 import com.example.newsblender.classes.ItemViewModel;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
@@ -98,24 +101,50 @@ public class ProfileSettingsFragment extends Fragment {
         mEditTextFullName.setText(fAuth.getCurrentUser().getDisplayName());
         mEditTextInbox.setText(fAuth.getCurrentUser().getEmail());
         mButtonOk.setOnClickListener(view -> {
-            try {
-                if (!mEditTextInbox.getText().toString().equals(fAuth.getCurrentUser().getEmail())) {
-                    fAuth.getCurrentUser().updateEmail(mEditTextInbox.getText().toString());
-                }
-                if (!mEditTextFullName.getText().toString().equals(fAuth.getCurrentUser().getDisplayName())) {
-                    fAuth.getCurrentUser().updateProfile(new UserProfileChangeRequest.Builder().setDisplayName(mEditTextFullName.getText().toString()).build());
-                }
-                if (mEditTextPassword.getText().length() > 5) {
-                    fAuth.getCurrentUser().updatePassword(mEditTextPassword.getText().toString());
-                }
-                Toast.makeText(getContext(), "Успіх!", Toast.LENGTH_SHORT).show();
-                mViewModel.getNavigationViewValue().popBackStack();
-            } catch (Exception e) {
-                Toast.makeText(getContext(), "Something is wrong, please, try again.", Toast.LENGTH_SHORT).show();
-            }
+            AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+
+            builder.setMessage(requireContext().getString(R.string.are_you_sure));
+
+            builder.setTitle(requireContext().getString(R.string.changing));
+
+            builder.setCancelable(false);
+
+            builder.setPositiveButton(
+                    requireContext().getString(R.string.yes),
+                    (dialog, which) -> {
+                        try {
+                            if (!mEditTextInbox.getText().toString().equals(fAuth.getCurrentUser().getEmail())) {
+                                fAuth.getCurrentUser().updateEmail(mEditTextInbox.getText().toString());
+                            }
+                            if (!mEditTextFullName.getText().toString().equals(fAuth.getCurrentUser().getDisplayName())) {
+                                fAuth.getCurrentUser().updateProfile(new UserProfileChangeRequest.Builder().setDisplayName(mEditTextFullName.getText().toString()).build());
+                            }
+                            if (mEditTextPassword.getText().length() > 5) {
+                                fAuth.getCurrentUser().updatePassword(mEditTextPassword.getText().toString());
+                            }
+                            Toast.makeText(getContext(), "Успіх!", Toast.LENGTH_SHORT).show();
+                            mViewModel.getNavigationViewValue().popBackStack();
+                        } catch (Exception e) {
+                            Toast.makeText(getContext(), "Something is wrong, please, try again.", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
+            builder.setNegativeButton(
+                    requireContext().getString(R.string.no),
+                    (dialog, which) -> {
+                        // If user click no
+                        // then dialog box is canceled.
+                        dialog.cancel();
+                    });
+
+            // Create the Alert dialog
+            AlertDialog alertDialog = builder.create();
+
+            // Show the Alert Dialog box
+            alertDialog.show();
         });
 
-
+//        Variant to load user avatar in high quality
 //        storageReference.child("images/" + Objects.requireNonNull(fAuth.getCurrentUser()).getUid()).getDownloadUrl().addOnSuccessListener(uri -> {
 //            Glide.with(this).load(uri).into(imageView);
 //        });
@@ -138,13 +167,9 @@ public class ProfileSettingsFragment extends Fragment {
 
     // Override onActivityResult method
     @Override
-    public void onActivityResult(int requestCode,
-                                 int resultCode,
-                                 Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-        super.onActivityResult(requestCode,
-                resultCode,
-                data);
+        super.onActivityResult(requestCode, resultCode, data);
 
         // checking request code and result code
         // if request code is PICK_IMAGE_REQUEST and

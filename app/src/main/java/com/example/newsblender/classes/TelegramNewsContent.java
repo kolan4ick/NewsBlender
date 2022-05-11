@@ -1,42 +1,26 @@
 package com.example.newsblender.classes;
 
-import android.annotation.SuppressLint;
-import android.app.ProgressDialog;
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
-import android.text.Html;
-import android.util.Log;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
-import android.widget.Toast;
 
 import androidx.cardview.widget.CardView;
-
-import com.example.newsblender.MainActivity;
-import com.smarteist.autoimageslider.SliderView;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Objects;
 import java.util.TimeZone;
-import java.util.Timer;
 
 public class TelegramNewsContent extends AsyncTask<Void, Void, Void> {
     private StringBuilder link;
@@ -109,7 +93,7 @@ public class TelegramNewsContent extends AsyncTask<Void, Void, Void> {
                 /* get Date and Time of creating news */
                 String inputValue = element.select(".time").attr("datetime");
                 LocalDateTime localDateTime = LocalDateTime.parse(inputValue, DateTimeFormatter.ISO_DATE_TIME).plusHours(ZoneId.of("Europe/Kiev").getRules().getOffset(Instant.now()).getTotalSeconds() / 3600);
-                telegramNews.add(new TelegramNews(ownerName, localDateTime, linkToNews, body, photo_links));
+                telegramNews.add(new TelegramNews(ownerName, localDateTime, linkToNews, body, photo_links, false));
             });
             this.telegramNews = telegramNews;
         }

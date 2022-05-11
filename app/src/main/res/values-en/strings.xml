@@ -78,4 +78,10 @@
     <string name="large">Large</string>
     <string name="light">Light</string>
     <string name="dark">Dark</string>
+    <string name="delete">Delete</string>
+    <string name="are_you_sure">Are you sure?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="deleting">Deleting!</string>
+    <string name="changing">Changing!</string>
 </resources>

@@ -2,7 +2,9 @@ package com.example.newsblender.classes;
 
 import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.text.Html;
@@ -16,6 +18,7 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
@@ -27,6 +30,7 @@ import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType;
 import com.smarteist.autoimageslider.SliderAnimations;
 import com.smarteist.autoimageslider.SliderView;
@@ -40,12 +44,13 @@ import java.util.Map;
 import java.util.Objects;
 
 public class TelegramNews {
-    public TelegramNews(String ownerName, LocalDateTime date, String linkToNews, String body, ArrayList<String> photoLinks) {
+    public TelegramNews(String ownerName, LocalDateTime date, String linkToNews, String body, ArrayList<String> photoLinks, boolean isSaved) {
         this.ownerName = ownerName;
         this.date = date;
         this.linkToNews = linkToNews;
         this.body = body;
         this.photoLinks = photoLinks;
+        this.isSaved = isSaved;
     }
 
     public String getOwnerName() {
@@ -55,6 +60,7 @@ public class TelegramNews {
     public LocalDateTime getDate() {
         return date;
     }
+
 
     public String getLinkToNews() {
         return linkToNews;
@@ -112,9 +118,8 @@ public class TelegramNews {
         ImageView detailsBtn = constraintLayout.findViewById(R.id.buttonDetails);
         detailsBtn.setOnClickListener(view -> {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(LAYOUT_INFLATER_SERVICE);
-            View popupView = inflater.inflate(R.layout.pop_up_window_news, null);
+            View popupView = inflater.inflate((isSaved ? R.layout.pop_up_window_news_saved : R.layout.pop_up_window_news), null);
             DrawerLayout mDrawerLayout = ((MainActivity) context).findViewById(R.id.drawer_layout);
-            Log.println(Log.DEBUG, "tag", constraintLayout.getParent().getParent().getParent().getParent().getParent().getParent().getParent().toString());
 
             // create the popup window
             int width = LinearLayout.LayoutParams.WRAP_CONTENT;
@@ -136,25 +141,63 @@ public class TelegramNews {
                 sharingIntent.putExtra(Intent.EXTRA_TEXT, "t.me/" + getLinkToNews());
                 context.startActivity(Intent.createChooser(sharingIntent, "Share text via"));
             });
+            FirebaseFirestore db = FirebaseFirestore.getInstance();
+            CollectionReference savedNews = db.collection("saved_news");
+            FirebaseAuth fAuth = FirebaseAuth.getInstance();
+            if (isSaved) {
+                popupView.findViewById(R.id.deleteTextView).setOnClickListener(item -> {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(context);
 
-            popupView.findViewById(R.id.saveTextView).setOnClickListener(item -> {
-                FirebaseFirestore db = FirebaseFirestore.getInstance();
-                CollectionReference savedNews = db.collection("saved_news");
-                FirebaseAuth fAuth = FirebaseAuth.getInstance();
+                    builder.setMessage(context.getString(R.string.are_you_sure));
 
-                Map<String, Object> saved_news = new HashMap<>();
-                saved_news.put("body", getBody());
-                saved_news.put("date", new Timestamp(Date.from(getDate().toInstant(ZoneOffset.UTC))));
-                saved_news.put("link_to_news", getLinkToNews());
-                saved_news.put("owner_name", getOwnerName());
-                saved_news.put("photo_links", getPhotoLinks());
-                saved_news.put("Uid", Objects.requireNonNull(fAuth.getCurrentUser()).getUid());
-                saved_news.put("date_added", Timestamp.now());
-                savedNews.document().set(saved_news).addOnCompleteListener(runnable -> {
-                    Toast.makeText(context, "Success added news", Toast.LENGTH_SHORT).show();
-                    popupWindow.dismiss();
+                    builder.setTitle(context.getString(R.string.deleting));
+
+                    builder.setCancelable(false);
+
+                    builder.setPositiveButton(
+                            context.getString(R.string.yes),
+                            (dialog, which) -> {
+                                savedNews.whereEqualTo("Uid", Objects.requireNonNull(fAuth.getCurrentUser()).getUid()).whereEqualTo("link_to_news", getLinkToNews()).get().addOnCompleteListener(task -> {
+                                    for (QueryDocumentSnapshot document : task.getResult()) {
+                                        document.getReference().delete();
+                                    }
+                                });
+                                popupWindow.dismiss();
+                                ((MainActivity) context).recreate();
+                            });
+
+                    builder.setNegativeButton(
+                            context.getString(R.string.no),
+                            (dialog, which) -> {
+                                // If user click no
+                                // then dialog box is canceled.
+                                dialog.cancel();
+                            });
+
+                    // Create the Alert dialog
+                    AlertDialog alertDialog = builder.create();
+
+                    // Show the Alert Dialog box
+                    alertDialog.show();
+
                 });
-            });
+            } else {
+                popupView.findViewById(R.id.saveTextView).setOnClickListener(item -> {
+
+                    Map<String, Object> saved_news = new HashMap<>();
+                    saved_news.put("body", getBody());
+                    saved_news.put("date", new Timestamp(Date.from(getDate().toInstant(ZoneOffset.UTC))));
+                    saved_news.put("link_to_news", getLinkToNews());
+                    saved_news.put("owner_name", getOwnerName());
+                    saved_news.put("photo_links", getPhotoLinks());
+                    saved_news.put("Uid", Objects.requireNonNull(fAuth.getCurrentUser()).getUid());
+                    saved_news.put("date_added", Timestamp.now());
+                    savedNews.document().set(saved_news).addOnCompleteListener(runnable -> {
+                        Toast.makeText(context, "Success added news", Toast.LENGTH_SHORT).show();
+                        popupWindow.dismiss();
+                    });
+                });
+            }
 
             View view1 = new View(context);
             view1.setBackgroundResource(R.drawable.background_tint);
@@ -168,4 +211,5 @@ public class TelegramNews {
     private final String linkToNews;
     private final String body;
     private final ArrayList<String> photoLinks;
+    private final boolean isSaved;
 }

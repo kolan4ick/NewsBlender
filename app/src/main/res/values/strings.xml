@@ -110,5 +110,11 @@
     <string name="luhansk_chkbx" translatable="false">Luhanska</string>
     <string name="donetsk_chkbx" translatable="false">Donetska</string>
     <string name="sumy_chkbx" translatable="false">Sumska</string>
+    <string name="delete">Видалити</string>
+    <string name="are_you_sure">Ви впевнені?</string>
+    <string name="yes">Так</string>
+    <string name="no">Ні</string>
+    <string name="deleting">Видалення!</string>
+    <string name="changing">Зміна!</string>
 
 </resources>
